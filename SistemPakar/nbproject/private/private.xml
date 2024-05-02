@@ -3,34 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/RegisterFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/AturanFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/CiriMinatBakatDAO.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/JurusanDAOMySQL.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/TambahGejalaFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/JurusanDAO.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/GejalaDAOMySQL.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/AturanDAO.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/KecerdasanMinatDAO.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/model/Jurusan.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/model/Aturan.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/MainProgram.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/LoginFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/GejalaFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/AturanDAOMySQL.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/model/KecerdasanMinat.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/AdminFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/PenyakitFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/JawabanUserDAOMySQL.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/UserFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/model/CiriMinatBakat.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/CiriMinatBakatDAOMySQL.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/model/JawabanUser.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/KecerdasanMinatDAOMySQL.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/GejalaDAO.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/dao/JawabanUserDAO.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/DiagnosaFrame.java</file>
-            <file>file:/C:/Users/Afghan/Documents/NetBeansProjects/pJavaSistemPakar/SistemPakar/src/com/sikar/view/TambahAturanFrame.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/view/TambahGejalaFrame.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/view/GejalaFrame.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/dao/CiriMinatBakatDAO.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/model/CiriMinatBakat.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/model/Gejala.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/model/JawabanUser.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/dao/GejalaDAO.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/dao/GejalaDAOMySQL.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/dao/CiriMinatBakatDAOMySQL.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/view/UserFrame.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/view/TambahPenyakitFrame.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/view/TambahCiriMinatBakat.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/model/Jurusan.java</file>
+            <file>file:/C:/Users/afgha/Documents/NetBeansProjects/reza/SistemPakar/src/com/sikar/view/TambahOrangFrame.java</file>
         </group>
     </open-files>
 </project-private>

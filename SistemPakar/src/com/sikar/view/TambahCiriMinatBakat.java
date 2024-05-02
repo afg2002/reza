@@ -4,9 +4,11 @@
  */
 package com.sikar.view;
 
-import com.sikar.model.Aturan;
-import com.sikar.dao.AturanDAO;
-import com.sikar.dao.AturanDAOMySQL;
+import com.sikar.dao.CiriMinatBakatDAO;
+import com.sikar.dao.CiriMinatBakatDAOMySQL;
+import com.sikar.model.Gejala;
+import com.sikar.dao.GejalaDAO;
+import com.sikar.model.CiriMinatBakat;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,22 +25,22 @@ import java.sql.SQLException;
  *
  * @author admin01
  */
-public class TambahAturanFrame extends javax.swing.JFrame {
-    private AturanDAO AturanDAO;
-    private List<Aturan> recAturan = new ArrayList<Aturan>();
+public class TambahCiriMinatBakat extends javax.swing.JFrame {
+    private CiriMinatBakatDAO ciriMinatBakatDAO;
+    private List<CiriMinatBakat> recCiriMinatBakat = new ArrayList<CiriMinatBakat>();
     private static final long serialVersionUID = 1L;
     /**
-     * Creates new form TambahAturanFrame
+     * Creates new form TambahGejalaFrame
      */
-    public TambahAturanFrame() {
+    public TambahCiriMinatBakat() {
         initComponents();
-        AturanDAO = new AturanDAOMySQL();
+        ciriMinatBakatDAO = new CiriMinatBakatDAOMySQL();
         initStatus();
 
-        tabelAturan.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tabelCiriMinatBakat.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int row = tabelAturan.getSelectedRow();
+                int row = tabelCiriMinatBakat.getSelectedRow();
                 if (row != -1) {
                     textFill();
                 }
@@ -46,50 +48,43 @@ public class TambahAturanFrame extends javax.swing.JFrame {
         });
     }
 
-    public void loadAllAturan() {
-        try {
-            recAturan = AturanDAO.getAll();
-        } catch (SQLException e) {
-            Logger.getLogger(TambahAturanFrame.class.getName()).log(Level.SEVERE, null, e);
-        }
+    public void loadAllCiriMinatBakat() {
+        recCiriMinatBakat = ciriMinatBakatDAO.getAll();
     }
 
     void tableFill() {
-        Object data[][] = new Object[recAturan.size()][4];
+        Object data[][] = new Object[recCiriMinatBakat.size()][3];
         int x = 0, no = 1;
-        for (Aturan a : recAturan) {
+        for (CiriMinatBakat c : recCiriMinatBakat) {
             data[x][0] = no++;
-            data[x][1] = a.getKode_aturan();
-            data[x][2] = a.getJika();
-            data[x][3] = a.getMaka();
+            data[x][1] = c.getKodeCiri();
+            data[x][2] = c.getPertanyaan();
             x++;
         }
-        String judul[] = {"No","Kode Aturan", "Jika", "Maka"};
-        tabelAturan.setModel(new DefaultTableModel(data, judul));
+        String judul[] = {"No","Kode Ciri", "Pertanyaan"};
+        tabelCiriMinatBakat.setModel(new DefaultTableModel(data, judul));
     }
 
     public void textFill() {
-        Aturan a = recAturan.get(tabelAturan.getSelectedRow());
-        txtKodeAturan.setText(a.getKode_aturan());
-        txtJika.setText(a.getJika());
-        txtMaka.setText(a.getMaka());
+        CiriMinatBakat c = recCiriMinatBakat.get(tabelCiriMinatBakat.getSelectedRow());
+        txtKodeCiri.setText(c.getKodeCiri());
+        txtKodePertanyaan.setText(c.getPertanyaan());
     }
 
     public void clear() {
-        txtKodeAturan.setText("");
-        txtJika.setText("");
-        txtMaka.setText("");
+        txtKodeCiri.setText("");
+        txtKodePertanyaan.setText("");
     }
 
     void initStatus() {
         clear();
-        loadAllAturan();
+        loadAllCiriMinatBakat();
         tableFill();
     }
 
     void refresh_page() {
         this.dispose();
-        TambahAturanFrame f = new TambahAturanFrame();
+        TambahCiriMinatBakat f = new TambahCiriMinatBakat();
         f.setVisible(true);
     }
 
@@ -102,24 +97,25 @@ public class TambahAturanFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         bgBlue = new javax.swing.JPanel();
         navbar = new javax.swing.JPanel();
-        TambahAturan = new javax.swing.JLabel();
+        TambahGejala = new javax.swing.JLabel();
         btnKembali = new javax.swing.JButton();
-        DataGejalaBox = new javax.swing.JPanel();
-        DataAturan = new javax.swing.JLabel();
-        txtKodeAturan = new javax.swing.JTextField();
-        labelKodeAturan = new javax.swing.JLabel();
-        labelJika = new javax.swing.JLabel();
+        DataCiriMinatBakatBox = new javax.swing.JPanel();
+        DataGejala = new javax.swing.JLabel();
+        txtKodeCiri = new javax.swing.JTextField();
+        labelKodeGejala = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
-        txtJika = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabelAturan = new javax.swing.JTable();
-        labelMaka = new javax.swing.JLabel();
-        txtMaka = new javax.swing.JTextField();
+        tabelCiriMinatBakat = new javax.swing.JTable();
+        labelPertanyaan = new javax.swing.JLabel();
+        txtKodePertanyaan = new javax.swing.JTextField();
         btnEdit = new javax.swing.JButton();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,8 +123,8 @@ public class TambahAturanFrame extends javax.swing.JFrame {
 
         navbar.setBackground(new java.awt.Color(254, 254, 254));
 
-        TambahAturan.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
-        TambahAturan.setText("Tambah Aturan");
+        TambahGejala.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        TambahGejala.setText("Tambah Ciri Minat Bakat");
 
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
@@ -143,8 +139,8 @@ public class TambahAturanFrame extends javax.swing.JFrame {
             navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(navbarLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(TambahAturan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
+                .addComponent(TambahGejala)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
                 .addComponent(btnKembali)
                 .addGap(36, 36, 36))
         );
@@ -153,21 +149,18 @@ public class TambahAturanFrame extends javax.swing.JFrame {
             .addGroup(navbarLayout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TambahAturan)
+                    .addComponent(TambahGejala)
                     .addComponent(btnKembali))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        DataGejalaBox.setBackground(new java.awt.Color(254, 254, 254));
+        DataCiriMinatBakatBox.setBackground(new java.awt.Color(254, 254, 254));
 
-        DataAturan.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        DataAturan.setText("Data Aturan");
+        DataGejala.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        DataGejala.setText("Data Ciri Minat Bakat");
 
-        labelKodeAturan.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
-        labelKodeAturan.setText("Kode Aturan :");
-
-        labelJika.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
-        labelJika.setText("Jika :");
+        labelKodeGejala.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
+        labelKodeGejala.setText("Kode Ciri :");
 
         btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +183,7 @@ public class TambahAturanFrame extends javax.swing.JFrame {
             }
         });
 
-        tabelAturan.setModel(new javax.swing.table.DefaultTableModel(
+        tabelCiriMinatBakat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -201,10 +194,16 @@ public class TambahAturanFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(tabelAturan);
+        jScrollPane3.setViewportView(tabelCiriMinatBakat);
 
-        labelMaka.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
-        labelMaka.setText("Maka :");
+        labelPertanyaan.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
+        labelPertanyaan.setText("Pertanyaan : ");
+
+        txtKodePertanyaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKodePertanyaanActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -213,14 +212,14 @@ public class TambahAturanFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout DataGejalaBoxLayout = new javax.swing.GroupLayout(DataGejalaBox);
-        DataGejalaBox.setLayout(DataGejalaBoxLayout);
-        DataGejalaBoxLayout.setHorizontalGroup(
-            DataGejalaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DataGejalaBoxLayout.createSequentialGroup()
+        javax.swing.GroupLayout DataCiriMinatBakatBoxLayout = new javax.swing.GroupLayout(DataCiriMinatBakatBox);
+        DataCiriMinatBakatBox.setLayout(DataCiriMinatBakatBoxLayout);
+        DataCiriMinatBakatBoxLayout.setHorizontalGroup(
+            DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(DataGejalaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DataGejalaBoxLayout.createSequentialGroup()
+                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                         .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,44 +227,36 @@ public class TambahAturanFrame extends javax.swing.JFrame {
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                    .addGroup(DataGejalaBoxLayout.createSequentialGroup()
-                        .addGroup(DataGejalaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(DataGejalaBoxLayout.createSequentialGroup()
-                                .addComponent(labelMaka)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                    .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                        .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                                .addComponent(labelPertanyaan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtMaka, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(DataGejalaBoxLayout.createSequentialGroup()
-                                .addComponent(labelKodeAturan)
+                                .addComponent(txtKodePertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                                .addComponent(labelKodeGejala)
                                 .addGap(30, 30, 30)
-                                .addComponent(txtKodeAturan, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DataGejalaBoxLayout.createSequentialGroup()
-                                .addComponent(labelJika)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtJika, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(DataAturan, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(txtKodeCiri, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DataGejala, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
-        DataGejalaBoxLayout.setVerticalGroup(
-            DataGejalaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DataGejalaBoxLayout.createSequentialGroup()
+        DataCiriMinatBakatBoxLayout.setVerticalGroup(
+            DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(DataAturan)
+                .addComponent(DataGejala)
                 .addGap(18, 18, 18)
-                .addGroup(DataGejalaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelKodeAturan)
-                    .addComponent(txtKodeAturan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DataGejalaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelJika)
-                    .addComponent(txtJika, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DataGejalaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMaka)
-                    .addComponent(txtMaka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(DataGejalaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelKodeGejala)
+                    .addComponent(txtKodeCiri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPertanyaan)
+                    .addComponent(txtKodePertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,17 +271,17 @@ public class TambahAturanFrame extends javax.swing.JFrame {
         bgBlueLayout.setHorizontalGroup(
             bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(navbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
+            .addGroup(bgBlueLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(DataGejalaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DataCiriMinatBakatBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bgBlueLayout.setVerticalGroup(
             bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgBlueLayout.createSequentialGroup()
                 .addComponent(navbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(DataGejalaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(DataCiriMinatBakatBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 36, Short.MAX_VALUE))
         );
 
@@ -315,57 +306,45 @@ public class TambahAturanFrame extends javax.swing.JFrame {
         f.setVisible(true);
     }//GEN-LAST:event_btnKembaliActionPerformed
 
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+        CiriMinatBakat g = new CiriMinatBakat();
+        g.setKodeCiri(txtKodeCiri.getText());
+        g.setPertanyaan(txtKodePertanyaan.getText());
+        ciriMinatBakatDAO.insert(g);
+        JOptionPane.showMessageDialog(null, "Berhasil, Data ditambahkan!");
+        clear();
+        refresh_page(); 
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        CiriMinatBakat g = new CiriMinatBakat();
+        g.setKodeCiri(txtKodeCiri.getText());
+        g.setPertanyaan(txtKodePertanyaan.getText());
+        ciriMinatBakatDAO.update(g);
+        JOptionPane.showMessageDialog(null, "Berhasil, Data diperbaharui!");
+        clear();
+        refresh_page(); 
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data?");
+        CiriMinatBakat g = recCiriMinatBakat.get(tabelCiriMinatBakat.getSelectedRow());
+        ciriMinatBakatDAO.deleteByKodeCiri(g.getKodeCiri());
+        JOptionPane.showMessageDialog(null, "Berhasil, Data dihapus!");
+        refresh_page();
+    }//GEN-LAST:event_btnHapusActionPerformed
+
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
         clear();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+    private void txtKodePertanyaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodePertanyaanActionPerformed
         // TODO add your handling code here:
-        try {
-            Aturan a = new Aturan();
-            a.setKode_aturan(txtKodeAturan.getText());
-            a.setJika(txtJika.getText());
-            a.setMaka(txtMaka.getText());
-            AturanDAO.insert(a);
-            JOptionPane.showMessageDialog(null, "Berhasil, Data ditambahkan!");
-            clear();
-            refresh_page();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-            Logger.getLogger(TambahAturanFrame.class.getName()).log(Level.SEVERE, null, e);
-        } 
-    }//GEN-LAST:event_btnTambahActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-        try {
-            Aturan a = new Aturan();
-            a.setKode_aturan(txtKodeAturan.getText());
-            a.setJika(txtJika.getText());
-            a.setMaka(txtMaka.getText());
-            AturanDAO.update(a);
-            JOptionPane.showMessageDialog(null, "Berhasil, Data diperbaharui!");
-            clear();
-            refresh_page();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-            Logger.getLogger(TambahAturanFrame.class.getName()).log(Level.SEVERE, null, e);
-        } 
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
-        try {
-            JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data?");
-            Aturan a = recAturan.get(tabelAturan.getSelectedRow());
-            AturanDAO.delete(a.getKode_aturan());
-            JOptionPane.showMessageDialog(null, "Berhasil, Data dihapus!");
-            refresh_page();
-        } catch (SQLException e) {
-            Logger.getLogger(TambahOrangFrame.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }//GEN-LAST:event_btnHapusActionPerformed
+    }//GEN-LAST:event_txtKodePertanyaanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,42 +363,42 @@ public class TambahAturanFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TambahAturanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TambahCiriMinatBakat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TambahAturanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TambahCiriMinatBakat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TambahAturanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TambahCiriMinatBakat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TambahAturanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TambahCiriMinatBakat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TambahAturanFrame().setVisible(true);
+                new TambahCiriMinatBakat().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel DataAturan;
-    private javax.swing.JPanel DataGejalaBox;
-    private javax.swing.JLabel TambahAturan;
+    private javax.swing.JPanel DataCiriMinatBakatBox;
+    private javax.swing.JLabel DataGejala;
+    private javax.swing.JLabel TambahGejala;
     private javax.swing.JPanel bgBlue;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnKembali;
     private javax.swing.JButton btnTambah;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel labelJika;
-    private javax.swing.JLabel labelKodeAturan;
-    private javax.swing.JLabel labelMaka;
+    private javax.swing.JLabel labelKodeGejala;
+    private javax.swing.JLabel labelPertanyaan;
     private javax.swing.JPanel navbar;
-    private javax.swing.JTable tabelAturan;
-    private javax.swing.JTextField txtJika;
-    private javax.swing.JTextField txtKodeAturan;
-    private javax.swing.JTextField txtMaka;
+    private javax.swing.JTable tabelCiriMinatBakat;
+    private javax.swing.JTextField txtKodeCiri;
+    private javax.swing.JTextField txtKodePertanyaan;
     // End of variables declaration//GEN-END:variables
 }

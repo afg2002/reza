@@ -4,10 +4,19 @@
  */
 package com.sikar.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  *
  * @author admin01
  */
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Orang {
     private String id;
     private String nama;
@@ -15,37 +24,5 @@ public class Orang {
     private String password;
     private String level;
 
-    // Setter
-    public void setId(String id) {
-        this.id = id;
-    } 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    // Getter
-    public String getId(){
-        return id;
-    }
-    public String getNama() {
-        return nama;
-    }
-    public String getUsername() {
-        return username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public String getLevel() {
-        return level;
-    }
+    
 }

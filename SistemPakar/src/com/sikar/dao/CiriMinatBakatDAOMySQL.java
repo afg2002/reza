@@ -10,7 +10,7 @@ import java.util.List;
 public class CiriMinatBakatDAOMySQL implements CiriMinatBakatDAO {
     private Connection connection;
 
-    public CiriMinatBakatDAOMySQL(Connection connection) {
+    public CiriMinatBakatDAOMySQL() {
         this.connection = DatabaseMySQL.connectDB();
     }
 

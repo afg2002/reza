@@ -30,15 +30,16 @@ public class AdminFrame extends javax.swing.JFrame {
 
         bgBlue = new javax.swing.JPanel();
         bgWhite = new javax.swing.JPanel();
-        btnAturan = new javax.swing.JButton();
-        btnDiagnosa = new javax.swing.JButton();
-        btnPenyakit = new javax.swing.JButton();
-        btnGejala = new javax.swing.JButton();
-        btnOrang = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         navbar = new javax.swing.JPanel();
         DashboarAdmin = new javax.swing.JLabel();
         btnKeluar = new javax.swing.JButton();
         SelamatDatang = new javax.swing.JLabel();
+        SelamatDatang1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,71 +47,44 @@ public class AdminFrame extends javax.swing.JFrame {
 
         bgWhite.setBackground(new java.awt.Color(254, 254, 254));
 
-        btnAturan.setText("Data Aturan");
-        btnAturan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAturanActionPerformed(evt);
-            }
-        });
+        jButton1.setText("User ");
 
-        btnDiagnosa.setBackground(new java.awt.Color(5, 101, 201));
-        btnDiagnosa.setForeground(new java.awt.Color(254, 254, 254));
-        btnDiagnosa.setText("Diagnosa");
-        btnDiagnosa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDiagnosaActionPerformed(evt);
-            }
-        });
+        jButton2.setText("Pertanyaan");
 
-        btnPenyakit.setText("Data Penyakit");
-        btnPenyakit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPenyakitActionPerformed(evt);
-            }
-        });
+        jButton3.setText("Aturan");
 
-        btnGejala.setText("Data Gejala");
-        btnGejala.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGejalaActionPerformed(evt);
-            }
-        });
+        jButton4.setText("Minat Bakat");
 
-        btnOrang.setText("Data Orang");
-        btnOrang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrangActionPerformed(evt);
-            }
-        });
+        jButton5.setText("Jurusan");
 
         javax.swing.GroupLayout bgWhiteLayout = new javax.swing.GroupLayout(bgWhite);
         bgWhite.setLayout(bgWhiteLayout);
         bgWhiteLayout.setHorizontalGroup(
             bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgWhiteLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnPenyakit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                    .addComponent(btnGejala, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAturan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDiagnosa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOrang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(26, 26, 26))
+            .addGroup(bgWhiteLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         bgWhiteLayout.setVerticalGroup(
             bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgWhiteLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(btnDiagnosa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnPenyakit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnGejala, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAturan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnOrang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+            .addGroup(bgWhiteLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         navbar.setBackground(new java.awt.Color(254, 254, 254));
@@ -150,29 +124,42 @@ public class AdminFrame extends javax.swing.JFrame {
         SelamatDatang.setForeground(new java.awt.Color(254, 254, 254));
         SelamatDatang.setText("Selamat Datang!");
 
+        SelamatDatang1.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        SelamatDatang1.setForeground(new java.awt.Color(254, 254, 254));
+        SelamatDatang1.setText("Di Dashboard Admin");
+
         javax.swing.GroupLayout bgBlueLayout = new javax.swing.GroupLayout(bgBlue);
         bgBlue.setLayout(bgBlueLayout);
         bgBlueLayout.setHorizontalGroup(
             bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(navbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
-                .addContainerGap(188, Short.MAX_VALUE)
-                .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(189, Short.MAX_VALUE))
             .addGroup(bgBlueLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(SelamatDatang)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                .addGroup(bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
+                        .addComponent(SelamatDatang)
+                        .addGap(161, 161, 161))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
+                        .addComponent(SelamatDatang1)
+                        .addGap(134, 134, 134))))
         );
         bgBlueLayout.setVerticalGroup(
             bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
                 .addComponent(navbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SelamatDatang)
-                .addGap(18, 18, 18)
-                .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGroup(bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgBlueLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(60, Short.MAX_VALUE))
+                    .addGroup(bgBlueLayout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(SelamatDatang)
+                        .addGap(18, 18, 18)
+                        .addComponent(SelamatDatang1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,39 +170,13 @@ public class AdminFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bgBlue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(bgBlue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 158, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAturanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAturanActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        TambahAturanFrame f = new TambahAturanFrame();
-        f.setVisible(true);
-    }//GEN-LAST:event_btnAturanActionPerformed
-
-    private void btnPenyakitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenyakitActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        TambahPenyakitFrame f = new TambahPenyakitFrame();
-        f.setVisible(true);
-    }//GEN-LAST:event_btnPenyakitActionPerformed
-
-    private void btnGejalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGejalaActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        TambahGejalaFrame f = new TambahGejalaFrame();
-        f.setVisible(true);
-    }//GEN-LAST:event_btnGejalaActionPerformed
-
-    private void btnOrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrangActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        TambahOrangFrame f = new TambahOrangFrame();
-        f.setVisible(true);
-    }//GEN-LAST:event_btnOrangActionPerformed
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
         // TODO add your handling code here:
@@ -223,13 +184,6 @@ public class AdminFrame extends javax.swing.JFrame {
         LoginFrame f = new LoginFrame();
         f.setVisible(true);
     }//GEN-LAST:event_btnKeluarActionPerformed
-
-    private void btnDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosaActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        DiagnosaFrame f = new DiagnosaFrame();
-        f.setVisible(true);
-    }//GEN-LAST:event_btnDiagnosaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,14 +223,15 @@ public class AdminFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DashboarAdmin;
     private javax.swing.JLabel SelamatDatang;
+    private javax.swing.JLabel SelamatDatang1;
     private javax.swing.JPanel bgBlue;
     private javax.swing.JPanel bgWhite;
-    private javax.swing.JButton btnAturan;
-    private javax.swing.JButton btnDiagnosa;
-    private javax.swing.JButton btnGejala;
     private javax.swing.JButton btnKeluar;
-    private javax.swing.JButton btnOrang;
-    private javax.swing.JButton btnPenyakit;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JPanel navbar;
     // End of variables declaration//GEN-END:variables
 }
