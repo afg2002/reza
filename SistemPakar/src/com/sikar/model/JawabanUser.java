@@ -11,5 +11,4 @@ public class JawabanUser {
     private int id;
     private int idKecerdasanMinat;
     private String jawaban;
-
 }

@@ -54,10 +54,9 @@ public class CiriMinatBakatDAOMySQL implements CiriMinatBakatDAO {
 
     @Override
     public boolean insert(CiriMinatBakat ciriMinatBakat) {
-        String sql = "INSERT INTO ciri_minat_bakat (kode_ciri, pertanyaan) VALUES (?, ?)";
+        String sql = "INSERT INTO ciri_minat_bakat (pertanyaan) VALUES (?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, ciriMinatBakat.getKodeCiri());
-            ps.setString(2, ciriMinatBakat.getPertanyaan());
+            ps.setString(1,ciriMinatBakat.getPertanyaan());
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();

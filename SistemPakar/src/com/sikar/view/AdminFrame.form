@@ -100,11 +100,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton1" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" pref="153" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="153" max="-2" attributes="0"/>
-                          <Component id="jButton4" min="-2" pref="153" max="-2" attributes="0"/>
-                          <Component id="jButton5" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="btnUser" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="btnPertanyaan" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="btnAturan" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="btnMinatBakat" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="btnJurusan" min="-2" pref="153" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="78" max="32767" attributes="0"/>
                   </Group>
@@ -114,45 +114,60 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="53" max="-2" attributes="0"/>
+                      <Component id="btnUser" min="-2" pref="53" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="53" max="-2" attributes="0"/>
+                      <Component id="btnPertanyaan" min="-2" pref="53" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="53" max="-2" attributes="0"/>
+                      <Component id="btnAturan" min="-2" pref="53" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" pref="53" max="-2" attributes="0"/>
+                      <Component id="btnMinatBakat" min="-2" pref="53" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" pref="53" max="-2" attributes="0"/>
+                      <Component id="btnJurusan" min="-2" pref="53" max="-2" attributes="0"/>
                       <EmptySpace pref="46" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="User "/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnPertanyaan">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pertanyaan"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPertanyaanActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btnAturan">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Aturan"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAturanActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton4">
+            <Component class="javax.swing.JButton" name="btnMinatBakat">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Minat Bakat"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMinatBakatActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="btnJurusan">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Jurusan"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnJurusanActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

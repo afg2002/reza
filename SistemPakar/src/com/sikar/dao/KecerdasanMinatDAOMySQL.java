@@ -9,7 +9,7 @@ import java.util.List;
 public class KecerdasanMinatDAOMySQL implements KecerdasanMinatDAO {
     private Connection connection;
 
-    public KecerdasanMinatDAOMySQL(Connection connection) {
+    public KecerdasanMinatDAOMySQL() {
         this.connection = DatabaseMySQL.connectDB();
     }
 

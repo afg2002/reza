@@ -4,9 +4,15 @@
  */
 package com.sikar.view;
 
-import com.sikar.dao.CiriMinatBakatDAO;
-import com.sikar.dao.CiriMinatBakatDAOMySQL;
-import com.sikar.model.CiriMinatBakat;
+import com.sikar.dao.JurusanDAO;
+import com.sikar.dao.JurusanDAOMySQL;
+import com.sikar.dao.KecerdasanMinatDAO;
+import com.sikar.dao.KecerdasanMinatDAOMySQL;
+import com.sikar.model.Jurusan;
+import com.sikar.model.KecerdasanMinat;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,25 +21,40 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JComboBox;
 /**
  *
  * @author admin01
  */
-public class TambahCiriMinatBakat extends javax.swing.JFrame {
-    private final CiriMinatBakatDAO ciriMinatBakatDAO;
-    private List<CiriMinatBakat> recCiriMinatBakat = new ArrayList<>();
+public class TambahJurusan extends javax.swing.JFrame {
+    private final JurusanDAO jurusanDAO;
+    private final KecerdasanMinatDAO kecerdasanMinatDAO;
+    private List<Jurusan> recJurusan = new ArrayList<>();
+    private HashMap kecerdasanMinatMap =  new HashMap<>(); // To store the mapping between string values and their IDs
     /**
      * Creates new form TambahGejalaFrame
+     * @throws java.sql.SQLException
      */
-    public TambahCiriMinatBakat() {
+    public TambahJurusan() throws SQLException {
         initComponents();
-        ciriMinatBakatDAO = new CiriMinatBakatDAOMySQL();
+        jurusanDAO = new JurusanDAOMySQL();
+        kecerdasanMinatDAO = new KecerdasanMinatDAOMySQL();
         initStatus();
-
-        tabelCiriMinatBakat.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        
+        
+        List<KecerdasanMinat>  kecerdasanMinatList = kecerdasanMinatDAO.getAll();
+        for (KecerdasanMinat kecerdasanMinat : kecerdasanMinatList) {
+            txtMinat.addItem(kecerdasanMinat.getNama_kecerdasan());
+            kecerdasanMinatMap.put(kecerdasanMinat.getNama_kecerdasan(), kecerdasanMinat.getId());
+        }
+        
+        tblJurusan.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int row = tabelCiriMinatBakat.getSelectedRow();
+                int row = tblJurusan.getSelectedRow();
                 if (row != -1) {
                     textFill();
                 }
@@ -41,43 +62,47 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
         });
     }
 
-    public void loadAllCiriMinatBakat() {
-        recCiriMinatBakat = ciriMinatBakatDAO.getAll();
+    public void loadAllJurusan() throws SQLException {
+        recJurusan = jurusanDAO.getAllJurusan();
     }
 
     void tableFill() {
-        Object data[][] = new Object[recCiriMinatBakat.size()][3];
+        Object data[][] = new Object[recJurusan.size()][5];
         int x = 0, no = 1;
-        for (CiriMinatBakat c : recCiriMinatBakat) {
+        for (Jurusan j : recJurusan) {
             data[x][0] = no++;
-            data[x][1] = c.getKodeCiri();
-            data[x][2] = c.getPertanyaan();
+            data[x][1] = j.getId();
+            data[x][2] = j.getIdKecerdasan();
+            data[x][3] = j.getNamaKecerdasan();
+            data[x][4] = j.getNamaJurusan();
             x++;
         }
-        String judul[] = {"No","Kode Ciri", "Pertanyaan"};
-        tabelCiriMinatBakat.setModel(new DefaultTableModel(data, judul));
+        String judul[] = {"No","ID", "ID Minat Bakat","Nama Minat",  "Nama Jurusan"};
+        tblJurusan.setModel(new DefaultTableModel(data, judul));
     }
 
     public void textFill() {
-        CiriMinatBakat c = recCiriMinatBakat.get(tabelCiriMinatBakat.getSelectedRow());
-        txtKodeCiri.setText(c.getKodeCiri());
-        txtKodePertanyaan.setText(c.getPertanyaan());
+        Jurusan j = recJurusan.get(tblJurusan.getSelectedRow());
+        txtIdJurusan.setText(String.valueOf(j.getId()));
+        txtIdMinat.setText(String.valueOf(j.getIdKecerdasan()));
+        txtMinat.setSelectedItem(j.getNamaKecerdasan());
+        txtJurusanKuliah.setText(j.getNamaJurusan());
     }
 
     public void clear() {
-        txtKodeCiri.setText("");
-        txtKodePertanyaan.setText("");
+        txtMinat.setSelectedIndex(0);
+        txtJurusanKuliah.setText("");
     }
 
-    void initStatus() {
+    void initStatus() throws SQLException {
         clear();
-        loadAllCiriMinatBakat();
+        loadAllJurusan();
         tableFill();
     }
 
-    void refresh_page() {
+    void refresh_page() throws SQLException {
         this.dispose();
-        TambahCiriMinatBakat f = new TambahCiriMinatBakat();
+        TambahJurusan f = new TambahJurusan();
         f.setVisible(true);
     }
 
@@ -97,16 +122,20 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
         btnKembali = new javax.swing.JButton();
         DataCiriMinatBakatBox = new javax.swing.JPanel();
         DataGejala = new javax.swing.JLabel();
-        txtKodeCiri = new javax.swing.JTextField();
         labelKodeGejala = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabelCiriMinatBakat = new javax.swing.JTable();
+        tblJurusan = new javax.swing.JTable();
         labelPertanyaan = new javax.swing.JLabel();
-        txtKodePertanyaan = new javax.swing.JTextField();
+        txtJurusanKuliah = new javax.swing.JTextField();
         btnEdit = new javax.swing.JButton();
+        txtMinat = new javax.swing.JComboBox<>();
+        labelKodeGejala1 = new javax.swing.JLabel();
+        txtIdJurusan = new javax.swing.JTextField();
+        labelKodeGejala2 = new javax.swing.JLabel();
+        txtIdMinat = new javax.swing.JTextField();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -117,7 +146,7 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
         navbar.setBackground(new java.awt.Color(254, 254, 254));
 
         TambahGejala.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
-        TambahGejala.setText("Tambah Ciri Minat Bakat");
+        TambahGejala.setText("Tambah Jurusan");
 
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +162,7 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
             .addGroup(navbarLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(TambahGejala)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 398, Short.MAX_VALUE)
                 .addComponent(btnKembali)
                 .addGap(36, 36, 36))
         );
@@ -150,12 +179,10 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
         DataCiriMinatBakatBox.setBackground(new java.awt.Color(254, 254, 254));
 
         DataGejala.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        DataGejala.setText("Data Ciri Minat Bakat");
-
-        txtKodeCiri.setEnabled(false);
+        DataGejala.setText("Data Jurusan");
 
         labelKodeGejala.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
-        labelKodeGejala.setText("Kode Ciri :");
+        labelKodeGejala.setText("Minat  ");
 
         btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +205,7 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
             }
         });
 
-        tabelCiriMinatBakat.setModel(new javax.swing.table.DefaultTableModel(
+        tblJurusan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -189,14 +216,14 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(tabelCiriMinatBakat);
+        jScrollPane3.setViewportView(tblJurusan);
 
         labelPertanyaan.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
-        labelPertanyaan.setText("Pertanyaan : ");
+        labelPertanyaan.setText("Jurusan Kuliah");
 
-        txtKodePertanyaan.addActionListener(new java.awt.event.ActionListener() {
+        txtJurusanKuliah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKodePertanyaanActionPerformed(evt);
+                txtJurusanKuliahActionPerformed(evt);
             }
         });
 
@@ -204,6 +231,30 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
+            }
+        });
+
+        txtMinat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "== Pilih ==" }));
+
+        labelKodeGejala1.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
+        labelKodeGejala1.setText("ID");
+
+        txtIdJurusan.setEditable(false);
+        txtIdJurusan.setEnabled(false);
+        txtIdJurusan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdJurusanActionPerformed(evt);
+            }
+        });
+
+        labelKodeGejala2.setFont(new java.awt.Font("Nunito", 0, 13)); // NOI18N
+        labelKodeGejala2.setText("ID Minat");
+
+        txtIdMinat.setEditable(false);
+        txtIdMinat.setEnabled(false);
+        txtIdMinat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdMinatActionPerformed(evt);
             }
         });
 
@@ -225,15 +276,28 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                     .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                         .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(DataGejala, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
-                                .addComponent(labelPertanyaan)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtKodePertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
-                                .addComponent(labelKodeGejala)
-                                .addGap(30, 30, 30)
-                                .addComponent(txtKodeCiri, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(DataGejala, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                                        .addComponent(labelPertanyaan)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                                        .addComponent(labelKodeGejala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(31, 31, 31))
+                                    .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                                        .addComponent(labelKodeGejala1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                                        .addComponent(labelKodeGejala2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtJurusanKuliah, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                    .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtIdJurusan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                        .addComponent(txtIdMinat, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txtMinat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(66, 66, 66)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
@@ -242,15 +306,23 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
             .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(DataGejala)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
+                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelKodeGejala1)
+                    .addComponent(txtIdJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelKodeGejala2)
+                    .addComponent(txtIdMinat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelKodeGejala)
-                    .addComponent(txtKodeCiri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMinat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPertanyaan)
-                    .addComponent(txtKodePertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                    .addComponent(txtJurusanKuliah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,9 +347,9 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
             bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgBlueLayout.createSequentialGroup()
                 .addComponent(navbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(DataCiriMinatBakatBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -302,36 +374,59 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKembaliActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // TODO add your handling code here:
-        CiriMinatBakat g = new CiriMinatBakat();
-        g.setPertanyaan(txtKodePertanyaan.getText());
-        ciriMinatBakatDAO.insert(g);
-        JOptionPane.showMessageDialog(null, "Berhasil, Data ditambahkan!");
-        clear();
-        refresh_page(); 
+        try{
+            // TODO add your handling code here:
+            Jurusan j = new Jurusan();
+            String selectedKecerdasan = (String) txtMinat.getSelectedItem();
+            j.setIdKecerdasan((int) kecerdasanMinatMap.get(selectedKecerdasan));
+            j.setNamaJurusan(txtJurusanKuliah.getText());
+            j.setNamaKecerdasan(selectedKecerdasan);
+            jurusanDAO.insertJurusan(j);
+            JOptionPane.showMessageDialog(null, "Berhasil, Data ditambahkan!");
+            clear();
+            refresh_page();
+            
+            int selectedKecerdasanId = (int) kecerdasanMinatMap.get(selectedKecerdasan); // Retrieve the corresponding ID
+            if(txtMinat.getSelectedIndex() != 0){
+                System.out.println("Selected Kecerdasan ID: " + selectedKecerdasanId);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        CiriMinatBakat g = new CiriMinatBakat();
-        g.setKodeCiri(txtKodeCiri.getText());
-        g.setPertanyaan(txtKodePertanyaan.getText());
-        ciriMinatBakatDAO.update(g);
+        try {
+        Jurusan j = new Jurusan();
+        String selectedKecerdasan = (String) txtMinat.getSelectedItem();
+        j.setIdKecerdasan((int) kecerdasanMinatMap.get(selectedKecerdasan));
+        j.setNamaJurusan(txtJurusanKuliah.getText());
+        
+            jurusanDAO.updateJurusanById(Integer.parseInt(txtIdJurusan.getText()), Integer.parseInt(txtIdMinat.getText()),txtJurusanKuliah.getText());
+        
         JOptionPane.showMessageDialog(null, "Berhasil, Data diperbaharui!");
         clear();
         refresh_page(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(TambahJurusan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+       
+        try {
         int confirmed = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
         if (confirmed == JOptionPane.YES_OPTION) {
-            JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data?");
-            CiriMinatBakat g = recCiriMinatBakat.get(tabelCiriMinatBakat.getSelectedRow());
-            ciriMinatBakatDAO.deleteByKodeCiri(g.getKodeCiri());
+            Jurusan j = recJurusan.get(tblJurusan.getSelectedRow());
+            jurusanDAO.deleteJurusanById(j.getId());
             JOptionPane.showMessageDialog(null, "Berhasil, Data dihapus!");
             refresh_page();
         }
-       
+    } catch (SQLException ex) {
+        Logger.getLogger(TambahJurusan.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -339,9 +434,17 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
         clear();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void txtKodePertanyaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodePertanyaanActionPerformed
+    private void txtJurusanKuliahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJurusanKuliahActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtKodePertanyaanActionPerformed
+    }//GEN-LAST:event_txtJurusanKuliahActionPerformed
+
+    private void txtIdJurusanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdJurusanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdJurusanActionPerformed
+
+    private void txtIdMinatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMinatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdMinatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -360,21 +463,27 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TambahCiriMinatBakat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TambahJurusan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TambahCiriMinatBakat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TambahJurusan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TambahCiriMinatBakat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TambahJurusan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TambahCiriMinatBakat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TambahJurusan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TambahCiriMinatBakat().setVisible(true);
+                try {
+                    new TambahJurusan().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TambahJurusan.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -392,10 +501,14 @@ public class TambahCiriMinatBakat extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelKodeGejala;
+    private javax.swing.JLabel labelKodeGejala1;
+    private javax.swing.JLabel labelKodeGejala2;
     private javax.swing.JLabel labelPertanyaan;
     private javax.swing.JPanel navbar;
-    private javax.swing.JTable tabelCiriMinatBakat;
-    private javax.swing.JTextField txtKodeCiri;
-    private javax.swing.JTextField txtKodePertanyaan;
+    private javax.swing.JTable tblJurusan;
+    private javax.swing.JTextField txtIdJurusan;
+    private javax.swing.JTextField txtIdMinat;
+    private javax.swing.JTextField txtJurusanKuliah;
+    private javax.swing.JComboBox<String> txtMinat;
     // End of variables declaration//GEN-END:variables
 }

@@ -19,25 +19,9 @@ public class DiagnosaFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    void penyakitPage() {
-        new PenyakitFrame().setVisible(true);
-        dispose();
-    }
+    
 
-    void checkDiagnosa() {
-        if (radioLemas.isSelected()&&radioDemam.isSelected()&&radioMual.isSelected()) {
-            JOptionPane.showMessageDialog(null, "[P01] Hepatitis B", "Hasil Diagnosa", JOptionPane.INFORMATION_MESSAGE);
-            penyakitPage();
-        } else if (radioLemas.isSelected()&&radioSesak.isSelected()&&radioPucat.isSelected()) {
-            JOptionPane.showMessageDialog(null, "[P02] Anemia", "Hasil Diagnosa", JOptionPane.INFORMATION_MESSAGE);
-            penyakitPage();
-        } else if (radioLemas.isSelected()&&radioBuram.isSelected()&&radioKering.isSelected()) {
-            JOptionPane.showMessageDialog(null, "[P03] Diabetes Gestasional", "Hasil Diagnosa", JOptionPane.INFORMATION_MESSAGE);
-            penyakitPage();
-        } else {
-            JOptionPane.showMessageDialog(null, "Penyakit dengan gejala tersebut, tidak ditemukan!", "Peringatan", JOptionPane.INFORMATION_MESSAGE);
-        }
-    } 
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -259,7 +243,7 @@ public class DiagnosaFrame extends javax.swing.JFrame {
 
     private void btnDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosaActionPerformed
         // TODO add your handling code here:
-        checkDiagnosa();
+        
     }//GEN-LAST:event_btnDiagnosaActionPerformed
 
     private void radioMualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioMualActionPerformed

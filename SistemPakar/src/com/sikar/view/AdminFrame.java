@@ -4,6 +4,9 @@
  */
 package com.sikar.view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,11 +33,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         bgBlue = new javax.swing.JPanel();
         bgWhite = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
+        btnPertanyaan = new javax.swing.JButton();
+        btnAturan = new javax.swing.JButton();
+        btnMinatBakat = new javax.swing.JButton();
+        btnJurusan = new javax.swing.JButton();
         navbar = new javax.swing.JPanel();
         DashboarAdmin = new javax.swing.JLabel();
         btnKeluar = new javax.swing.JButton();
@@ -47,15 +50,40 @@ public class AdminFrame extends javax.swing.JFrame {
 
         bgWhite.setBackground(new java.awt.Color(254, 254, 254));
 
-        jButton1.setText("User ");
+        btnUser.setText("User ");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Pertanyaan");
+        btnPertanyaan.setText("Pertanyaan");
+        btnPertanyaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPertanyaanActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Aturan");
+        btnAturan.setText("Aturan");
+        btnAturan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAturanActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Minat Bakat");
+        btnMinatBakat.setText("Minat Bakat");
+        btnMinatBakat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinatBakatActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Jurusan");
+        btnJurusan.setText("Jurusan");
+        btnJurusan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJurusanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bgWhiteLayout = new javax.swing.GroupLayout(bgWhite);
         bgWhite.setLayout(bgWhiteLayout);
@@ -64,26 +92,26 @@ public class AdminFrame extends javax.swing.JFrame {
             .addGroup(bgWhiteLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAturan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMinatBakat, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
         bgWhiteLayout.setVerticalGroup(
             bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgWhiteLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAturan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMinatBakat, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -185,6 +213,41 @@ public class AdminFrame extends javax.swing.JFrame {
         f.setVisible(true);
     }//GEN-LAST:event_btnKeluarActionPerformed
 
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        this.dispose();
+        TambahOrangFrame u = new TambahOrangFrame();
+        u.setVisible(true);
+    }//GEN-LAST:event_btnUserActionPerformed
+
+    private void btnPertanyaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPertanyaanActionPerformed
+        this.dispose();
+        TambahCiriMinatBakat u = new TambahCiriMinatBakat();
+        u.setVisible(true);
+    }//GEN-LAST:event_btnPertanyaanActionPerformed
+
+    private void btnAturanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAturanActionPerformed
+        this.dispose();
+        TambahAturanFrame u = new TambahAturanFrame();
+        u.setVisible(true);
+    }//GEN-LAST:event_btnAturanActionPerformed
+
+    private void btnMinatBakatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinatBakatActionPerformed
+        this.dispose();
+        TambahKecerdasanMinat u = new TambahKecerdasanMinat();
+        u.setVisible(true);
+    }//GEN-LAST:event_btnMinatBakatActionPerformed
+
+    private void btnJurusanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJurusanActionPerformed
+        this.dispose();
+        TambahJurusan u = null;
+        try {
+            u = new TambahJurusan();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        u.setVisible(true);
+    }//GEN-LAST:event_btnJurusanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,12 +289,12 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JLabel SelamatDatang1;
     private javax.swing.JPanel bgBlue;
     private javax.swing.JPanel bgWhite;
+    private javax.swing.JButton btnAturan;
+    private javax.swing.JButton btnJurusan;
     private javax.swing.JButton btnKeluar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnMinatBakat;
+    private javax.swing.JButton btnPertanyaan;
+    private javax.swing.JButton btnUser;
     private javax.swing.JPanel navbar;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,34 +4,61 @@
  */
 package com.sikar.view;
 
-import com.sikar.model.Penyakit;
-import com.sikar.dao.PenyakitDAO;
-import com.sikar.dao.PenyakitDAOMySQL;
-
+import com.sikar.dao.CiriMinatBakatDAO;
+import com.sikar.dao.CiriMinatBakatDAOMySQL;
+import com.sikar.model.CiriMinatBakat;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.List;
-import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
-import java.sql.SQLException;
 /**
  *
  * @author admin01
  */
 public class UserFrame extends javax.swing.JFrame {
-    private PenyakitDAO PenyakitDAO;
-    private List<Penyakit> recPenyakit = new ArrayList<Penyakit>();
-    private static final long serialVersionUID = 1L;
+    private final CiriMinatBakatDAO ciriMinatBakatDAO;
+    private List<CiriMinatBakat> recCiriMinatBakat = new ArrayList<CiriMinatBakat>();
+    private int index = 0;
     /**
      * Creates new form UserFrame
      */
     public UserFrame() {
         initComponents();
+        ciriMinatBakatDAO = new CiriMinatBakatDAOMySQL();
+        loadAllPertanyaan();
+        
+        
+    }
+    
+     public void loadAllPertanyaan() {
+         recCiriMinatBakat = ciriMinatBakatDAO.getAll();
+         System.out.println(recCiriMinatBakat.get(0));
+    }
+     
+       public void tampilkanPertanyaan() {
+        // Memastikan index berada dalam rentang yang benar
+        if (index >= 0 && index < recCiriMinatBakat.size()) {
+            CiriMinatBakat pertanyaan = recCiriMinatBakat.get(index);
+            String jawaban = JOptionPane.showInputDialog(null, pertanyaan.getPertanyaan(), "Pertanyaan", JOptionPane.QUESTION_MESSAGE);
+            
+            // Lakukan sesuatu dengan jawaban
+            // Misalnya, Anda dapat menyimpan jawaban ke database atau melakukan pemrosesan lebih lanjut
+            prosesPertanyaan();
+        } else {
+            // Jika sudah tidak ada pertanyaan tersisa
+            JOptionPane.showMessageDialog(null, "Tidak ada pertanyaan lagi.", "Pemberitahuan", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    public void prosesPertanyaan() {
+        // Memanggil method untuk menampilkan pertanyaan berikutnya
+        index++;
+        tampilkanPertanyaan();
     }
 
     
@@ -271,10 +298,7 @@ public class UserFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void btnDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosaActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        DiagnosaFrame f = new DiagnosaFrame();
-        f.setVisible(true);
+        prosesPertanyaan();
     }//GEN-LAST:event_btnDiagnosaActionPerformed
 
     private void btnDiagnosa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa1ActionPerformed
@@ -282,19 +306,32 @@ public class UserFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDiagnosa1ActionPerformed
 
     private void btnDiagnosa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa2ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        CiriMinatBakatFrame c = new CiriMinatBakatFrame();
+        c.setVisible(true);
     }//GEN-LAST:event_btnDiagnosa2ActionPerformed
 
     private void btnDiagnosa3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa3ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        AturanFrame c = new AturanFrame();
+        c.setVisible(true);
     }//GEN-LAST:event_btnDiagnosa3ActionPerformed
 
     private void btnDiagnosa4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa4ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        CiriMinatBakatFrame c = new CiriMinatBakatFrame();
+        c.setVisible(true);
     }//GEN-LAST:event_btnDiagnosa4ActionPerformed
 
     private void btnDiagnosa5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa5ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        JurusanFrame c = null;
+        try {
+            c = new JurusanFrame();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        c.setVisible(true);
     }//GEN-LAST:event_btnDiagnosa5ActionPerformed
 
     /**

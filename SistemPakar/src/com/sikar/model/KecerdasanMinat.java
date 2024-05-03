@@ -6,9 +6,11 @@ package com.sikar.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class KecerdasanMinat {
     private int id;
     private String nama_kecerdasan;

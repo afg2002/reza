@@ -1,5 +1,7 @@
 package com.sikar.dao;
 
+import com.sikar.database.DatabaseMySQL;
+import com.sikar.model.Jurusan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,29 +13,36 @@ public class JurusanDAOMySQL implements JurusanDAO {
 
     private Connection connection;
 
-    public JurusanDAOMySQL(Connection connection) {
-        this.connection = connection;
+    public JurusanDAOMySQL() {
+        this.connection = DatabaseMySQL.connectDB();
     }
 
     @Override
-    public List<String> getAllJurusan() throws SQLException {
-        List<String> jurusanList = new ArrayList<>();
-        String sql = "SELECT nama_jurusan FROM jurusan";
-        try (PreparedStatement ps = connection.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                jurusanList.add(rs.getString("nama_jurusan"));
-            }
+    public List<Jurusan> getAllJurusan() throws SQLException {
+    List<Jurusan> jurusanList = new ArrayList<>();
+    String sql = "SELECT jurusan.id, jurusan.id_kecerdasan, kecerdasan_minat.nama_kecerdasan, jurusan.nama_jurusan FROM jurusan INNER JOIN kecerdasan_minat ON jurusan.id_kecerdasan = kecerdasan_minat.id";
+    try (PreparedStatement ps = connection.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int idKecerdasan = rs.getInt("id_kecerdasan");
+            String nama_kecerdasan = rs.getString("nama_kecerdasan");
+            String namaJurusan = rs.getString("nama_jurusan");
+           
+            Jurusan jurusan = new Jurusan(id, idKecerdasan,nama_kecerdasan, namaJurusan);
+            jurusanList.add(jurusan);
         }
-        return jurusanList;
     }
+    return jurusanList;
+}
+
 
     @Override
-    public void insertJurusan(int idKecerdasan, String namaJurusan) throws SQLException {
+    public void insertJurusan(Jurusan j) throws SQLException {
         String sql = "INSERT INTO jurusan (id_kecerdasan, nama_jurusan) VALUES (?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, idKecerdasan);
-            ps.setString(2, namaJurusan);
+            ps.setInt(1, j.getIdKecerdasan());
+            ps.setString(2, j.getNamaJurusan());
             ps.executeUpdate();
         }
     }
