@@ -232,11 +232,13 @@ public class LoginFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Selamat Datang Admin");
                 this.dispose();
                 AdminFrame f = new AdminFrame();
+                f.txtNamaAdmin.setText(o.getNama());
                 f.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Selamat Datang User");
                 this.dispose();
                 UserFrame f = new UserFrame();
+                f.txtNamaUser.setText(o.getNama());
                 f.setVisible(true);
             }
         } else {

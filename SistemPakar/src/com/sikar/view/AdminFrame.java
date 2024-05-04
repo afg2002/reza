@@ -38,9 +38,12 @@ public class AdminFrame extends javax.swing.JFrame {
         btnAturan = new javax.swing.JButton();
         btnMinatBakat = new javax.swing.JButton();
         btnJurusan = new javax.swing.JButton();
+        btnJawaban = new javax.swing.JButton();
         navbar = new javax.swing.JPanel();
         DashboarAdmin = new javax.swing.JLabel();
         btnKeluar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        txtNamaAdmin = new javax.swing.JLabel();
         SelamatDatang = new javax.swing.JLabel();
         SelamatDatang1 = new javax.swing.JLabel();
 
@@ -85,6 +88,13 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
+        btnJawaban.setText("Jawaban User");
+        btnJawaban.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJawabanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgWhiteLayout = new javax.swing.GroupLayout(bgWhite);
         bgWhite.setLayout(bgWhiteLayout);
         bgWhiteLayout.setHorizontalGroup(
@@ -96,7 +106,8 @@ public class AdminFrame extends javax.swing.JFrame {
                     .addComponent(btnPertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAturan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMinatBakat, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnJawaban, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
         bgWhiteLayout.setVerticalGroup(
@@ -112,7 +123,9 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addComponent(btnMinatBakat, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(btnJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(btnJawaban, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         navbar.setBackground(new java.awt.Color(254, 254, 254));
@@ -127,6 +140,10 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        txtNamaAdmin.setText("jLabel1");
+
         javax.swing.GroupLayout navbarLayout = new javax.swing.GroupLayout(navbar);
         navbar.setLayout(navbarLayout);
         navbarLayout.setHorizontalGroup(
@@ -135,6 +152,10 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(DashboarAdmin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtNamaAdmin)
+                .addGap(27, 27, 27)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnKeluar)
                 .addGap(36, 36, 36))
         );
@@ -142,9 +163,12 @@ public class AdminFrame extends javax.swing.JFrame {
             navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(navbarLayout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DashboarAdmin)
-                    .addComponent(btnKeluar))
+                .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(DashboarAdmin)
+                        .addComponent(btnKeluar)
+                        .addComponent(txtNamaAdmin)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -179,14 +203,14 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addComponent(navbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgBlueLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                        .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(60, Short.MAX_VALUE))
-                    .addGroup(bgBlueLayout.createSequentialGroup()
                         .addGap(235, 235, 235)
                         .addComponent(SelamatDatang)
                         .addGap(18, 18, 18)
                         .addComponent(SelamatDatang1)
+                        .addContainerGap(233, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -248,6 +272,10 @@ public class AdminFrame extends javax.swing.JFrame {
         u.setVisible(true);
     }//GEN-LAST:event_btnJurusanActionPerformed
 
+    private void btnJawabanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJawabanActionPerformed
+        
+    }//GEN-LAST:event_btnJawabanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -290,11 +318,14 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JPanel bgBlue;
     private javax.swing.JPanel bgWhite;
     private javax.swing.JButton btnAturan;
+    private javax.swing.JButton btnJawaban;
     private javax.swing.JButton btnJurusan;
     private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnMinatBakat;
     private javax.swing.JButton btnPertanyaan;
     private javax.swing.JButton btnUser;
-    private javax.swing.JPanel navbar;
+    private javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel navbar;
+    public javax.swing.JLabel txtNamaAdmin;
     // End of variables declaration//GEN-END:variables
 }

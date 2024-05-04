@@ -14,6 +14,7 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import static java.util.logging.Level.SEVERE;
 import java.util.logging.Logger;
@@ -22,17 +23,54 @@ import java.util.logging.Logger;
  * @author admin01
  */
 public class OrangDAOMySQL implements OrangDAO {
-    @Override
-    public void insert(Orang o) throws SQLException {
-        String sql = "INSERT INTO orang VALUES (?,?,?,?,?)";
-        PreparedStatement ps = DatabaseMySQL.connectDB().prepareStatement(sql);
-        ps.setString(1, o.getId());
-        ps.setString(2, o.getNama());
-        ps.setString(3, o.getUsername());
-        ps.setString(4, o.getPassword());
-        ps.setString(5, o.getLevel());
-        ps.executeUpdate();
+    
+    
+private String generateUniqueID() throws SQLException {
+    // Generate a random 6-digit number (000001 to 999999)
+    String randomId = String.format("%06d", new Random().nextInt(999999) + 1);
+
+    // Check for uniqueness by querying the database
+    String sql = "SELECT COUNT(*) FROM orang WHERE id = ?";
+    try (PreparedStatement ps = DatabaseMySQL.connectDB().prepareStatement(sql)) {
+        ps.setString(1, "SPK" + randomId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            // ID already exists, regenerate
+            return generateUniqueID();
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException("Error generating unique ID", e);
     }
+
+    // No duplicates found, return the generated ID with prefix
+    return "SPK" + randomId;
+}
+
+@Override
+public void insert(Orang o) throws SQLException {
+    // Validate username existence
+    String validateUsernameSql = "SELECT COUNT(*) FROM orang WHERE username = ?";
+    try (PreparedStatement ps = DatabaseMySQL.connectDB().prepareStatement(validateUsernameSql)) {
+        ps.setString(1, o.getUsername());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            throw new SQLException("Username sudah ada, ganti yang lain");
+        }
+    } catch (SQLException e) {
+        throw e; // Re-throw the exception for proper handling
+    }
+
+    // Username is unique, proceed with insertion
+    String sql = "INSERT INTO orang VALUES (?,?,?,?,?)";
+    PreparedStatement ps = DatabaseMySQL.connectDB().prepareStatement(sql);
+    ps.setString(1, generateUniqueID());
+    ps.setString(2, o.getNama());
+    ps.setString(3, o.getUsername());
+    ps.setString(4, o.getPassword());
+    ps.setString(5, o.getLevel());
+    ps.executeUpdate();
+}
+
 
     @Override
     public void update(Orang o) throws SQLException {

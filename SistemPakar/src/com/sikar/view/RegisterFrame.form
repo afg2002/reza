@@ -92,20 +92,11 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="labelPassword1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtId" min="-2" pref="114" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="labelLevel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboLevel" min="-2" pref="114" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
                                   <Component id="txtNama" alignment="1" min="-2" pref="246" max="-2" attributes="0"/>
                                   <Component id="labelUsername1" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnRegister" alignment="1" min="-2" pref="243" max="-2" attributes="0"/>
+                                  <Component id="labelLevel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="comboLevel" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -138,24 +129,19 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="labelPassword" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="labelPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelLevel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtPassword" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtPassword" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="comboLevel" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelPassword1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="comboLevel" pref="50" max="32767" attributes="0"/>
-                                          <Component id="txtId" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="labelLevel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="56" max="32767" attributes="0"/>
+                              <EmptySpace min="24" pref="130" max="32767" attributes="0"/>
                               <Component id="btnRegister" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnMasuk" min="-2" max="-2" attributes="0"/>
@@ -222,14 +208,6 @@
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtPassword">
             </Component>
-            <Component class="javax.swing.JLabel" name="labelPassword1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Nunito" size="13" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="ID User"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="labelLevel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -268,8 +246,6 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnMasukMouseClicked"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtId">
             </Component>
           </SubComponents>
         </Container>

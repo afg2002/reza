@@ -47,13 +47,11 @@ public class RegisterFrame extends javax.swing.JFrame{
         labelUsername = new javax.swing.JLabel();
         labelPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        labelPassword1 = new javax.swing.JLabel();
         labelLevel = new javax.swing.JLabel();
         comboLevel = new javax.swing.JComboBox<>();
         labelUsername1 = new javax.swing.JLabel();
         txtNama = new javax.swing.JTextField();
         btnMasuk = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,9 +81,6 @@ public class RegisterFrame extends javax.swing.JFrame{
 
         labelPassword.setFont(new java.awt.Font("Nunito", 1, 13)); // NOI18N
         labelPassword.setText("Password");
-
-        labelPassword1.setFont(new java.awt.Font("Nunito", 1, 13)); // NOI18N
-        labelPassword1.setText("ID User");
 
         labelLevel.setFont(new java.awt.Font("Nunito", 1, 13)); // NOI18N
         labelLevel.setText("Level");
@@ -125,17 +120,11 @@ public class RegisterFrame extends javax.swing.JFrame{
                             .addComponent(labelPassword))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgWhiteLayout.createSequentialGroup()
-                                .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelPassword1)
-                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelLevel)
-                                    .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(txtNama, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelUsername1)
-                            .addComponent(btnRegister, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnRegister, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelLevel)
+                            .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27))
         );
         bgWhiteLayout.setVerticalGroup(
@@ -160,20 +149,16 @@ public class RegisterFrame extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgWhiteLayout.createSequentialGroup()
-                        .addComponent(labelPassword)
+                        .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelPassword)
+                            .addComponent(labelLevel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(bgWhiteLayout.createSequentialGroup()
-                        .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(bgWhiteLayout.createSequentialGroup()
-                                .addComponent(labelPassword1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                                    .addComponent(txtId)))
-                            .addComponent(labelLevel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addGap(24, 130, Short.MAX_VALUE)
                         .addComponent(btnRegister)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMasuk)
@@ -214,17 +199,18 @@ public class RegisterFrame extends javax.swing.JFrame{
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         try {
             Orang o = new Orang();
-            o.setId(txtId.getText());
             o.setNama(txtNama.getText());
             o.setUsername(txtUsername.getText());
             o.setPassword(txtPassword.getText());
             o.setLevel((String) comboLevel.getSelectedItem());
             OrangDAO.insert(o);
             JOptionPane.showMessageDialog(null, "Berhasil, Data ditambahkan!");
-            txtId.setText("");
             txtNama.setText("");
             txtUsername.setText("");
             txtPassword.setText("");
+            this.dispose();
+            LoginFrame f = new LoginFrame();
+            f.setVisible(true);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
             Logger.getLogger(RegisterFrame.class.getName()).log(Level.SEVERE, null, e);
@@ -280,13 +266,11 @@ public class RegisterFrame extends javax.swing.JFrame{
     private javax.swing.JComboBox<String> comboLevel;
     private javax.swing.JLabel labelLevel;
     private javax.swing.JLabel labelPassword;
-    private javax.swing.JLabel labelPassword1;
     private javax.swing.JLabel labelUsername;
     private javax.swing.JLabel labelUsername1;
     private javax.swing.JLabel login;
     private javax.swing.JLabel text1;
     private javax.swing.JLabel text2;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNama;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
