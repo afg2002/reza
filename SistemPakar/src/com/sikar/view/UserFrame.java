@@ -6,16 +6,14 @@ package com.sikar.view;
 
 import com.sikar.dao.CiriMinatBakatDAO;
 import com.sikar.dao.CiriMinatBakatDAOMySQL;
+import com.sikar.dao.JawabanUserDAO;
+import com.sikar.dao.JawabanUserDAOMySQL;
 import com.sikar.model.CiriMinatBakat;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,8 +22,10 @@ import javax.swing.JOptionPane;
 public class UserFrame extends javax.swing.JFrame {
 
     private final CiriMinatBakatDAO ciriMinatBakatDAO;
-    private List<CiriMinatBakat> recCiriMinatBakat = new ArrayList<CiriMinatBakat>();
+    private JawabanUserDAO jawabanUserDAO = new JawabanUserDAOMySQL();
+    public List<CiriMinatBakat> recCiriMinatBakat = new ArrayList<>();
     public static int index = 0;
+    public static boolean status = false;
 
     /**
      * Creates new form UserFrame
@@ -34,23 +34,24 @@ public class UserFrame extends javax.swing.JFrame {
         initComponents();
         ciriMinatBakatDAO = new CiriMinatBakatDAOMySQL();
         loadAllPertanyaan();
-
     }
 
     public void loadAllPertanyaan() {
         recCiriMinatBakat = ciriMinatBakatDAO.getAll();
     }
 
-    public void tampilkanPertanyaan() {
+    public void tampilkanPertanyaan(String status) {
         // Memastikan index berada dalam rentang yang benar
         if (index >= 0 && index < recCiriMinatBakat.size()) {
             CiriMinatBakat pertanyaan = recCiriMinatBakat.get(index);
             int totalPertanyaan= recCiriMinatBakat.size();
-            PertanyaanDialog pd = new PertanyaanDialog(this, rootPaneCheckingEnabled);
+            PertanyaanDialog pd = new PertanyaanDialog(this, true, txtId.getText());
             pd.setLocationRelativeTo(null);
             pd.txtPertanyaan.setText("<html><p style=\"word-wrap: break-word;\">" + pertanyaan.getPertanyaan() + "</p></html>");
             pd.txtTotalPertanyaan.setText(String.valueOf(totalPertanyaan));
             pd.txtPosPerNow.setText(String.valueOf(index+1));
+            pd.txtKodeCiri.setText(pertanyaan.getKodeCiri());
+            pd.btnNext.setText(status);
             pd.setVisible(true);
         }
     }
@@ -73,6 +74,7 @@ public class UserFrame extends javax.swing.JFrame {
         btnKeluar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtNamaUser = new javax.swing.JLabel();
+        txtId = new javax.swing.JLabel();
         SelamatDatang = new javax.swing.JLabel();
         SelamatDatang1 = new javax.swing.JLabel();
         bgWhite1 = new javax.swing.JPanel();
@@ -142,6 +144,8 @@ public class UserFrame extends javax.swing.JFrame {
 
         txtNamaUser.setText("jLabel1");
 
+        txtId.setText("jLabel1");
+
         javax.swing.GroupLayout navbarLayout = new javax.swing.GroupLayout(navbar);
         navbar.setLayout(navbarLayout);
         navbarLayout.setHorizontalGroup(
@@ -150,11 +154,13 @@ public class UserFrame extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(DashboardUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navbarLayout.createSequentialGroup()
+                .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(navbarLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(157, 157, 157))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navbarLayout.createSequentialGroup()
+                    .addGroup(navbarLayout.createSequentialGroup()
+                        .addComponent(txtId)
+                        .addGap(108, 108, 108)
                         .addComponent(txtNamaUser)
                         .addGap(55, 55, 55)))
                 .addComponent(btnKeluar)
@@ -166,11 +172,13 @@ public class UserFrame extends javax.swing.JFrame {
                 .addContainerGap(8, Short.MAX_VALUE)
                 .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(DashboardUser)
-                        .addComponent(btnKeluar)
-                        .addComponent(txtNamaUser)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addGroup(navbarLayout.createSequentialGroup()
+                        .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DashboardUser)
+                            .addComponent(btnKeluar)
+                            .addComponent(txtNamaUser)
+                            .addComponent(txtId))
+                        .addGap(28, 28, 28))))
         );
 
         SelamatDatang.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
@@ -305,7 +313,16 @@ public class UserFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void btnDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosaActionPerformed
-        tampilkanPertanyaan();
+        if(status){
+            System.out.println("lagi");
+            try {
+                jawabanUserDAO.deleteJawabanUser(txtId.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(UserFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        tampilkanPertanyaan("Next");
+        
     }//GEN-LAST:event_btnDiagnosaActionPerformed
 
     private void btnDiagnosa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa1ActionPerformed
@@ -383,7 +400,7 @@ public class UserFrame extends javax.swing.JFrame {
     public javax.swing.JPanel bgBlue;
     private javax.swing.JPanel bgWhite;
     private javax.swing.JPanel bgWhite1;
-    private javax.swing.JButton btnDiagnosa;
+    public javax.swing.JButton btnDiagnosa;
     private javax.swing.JButton btnDiagnosa1;
     private javax.swing.JButton btnDiagnosa2;
     private javax.swing.JButton btnDiagnosa3;
@@ -392,6 +409,7 @@ public class UserFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnKeluar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel navbar;
+    public javax.swing.JLabel txtId;
     public javax.swing.JLabel txtNamaUser;
     // End of variables declaration//GEN-END:variables
 }

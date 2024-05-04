@@ -1,11 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package com.sikar.view;
 
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import com.sikar.dao.JawabanUserDAO;
+import com.sikar.dao.JawabanUserDAOMySQL;
+import com.sikar.model.JawabanUser;
+import com.sikar.model.Orang;
+import java.awt.Frame;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,15 +18,18 @@ import javax.swing.JPanel;
  */
 public class PertanyaanDialog extends javax.swing.JDialog {
 
-    /**
-     * Creates new form PertanyaanDialog
-     */
-    public PertanyaanDialog(java.awt.Frame parent, boolean modal) {
+     private final JawabanUserDAO jawabanUserDAO;
+     public List<JawabanUser> recJawabanUser = new ArrayList<>();
+     private String userId;
+    public PertanyaanDialog(Frame parent, boolean modal, String userId) {
         super(parent, modal);
         initComponents();
-//        JPanel container = new JPanel(new BorderLayout());
-//        
+        jawabanUserDAO = new JawabanUserDAOMySQL();
+        this.userId = userId; // Set userId in the constructor
+        System.out.println("userId: " + this.userId); // Now prints the correct userId value
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,6 +40,8 @@ public class PertanyaanDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rbGroup = new javax.swing.ButtonGroup();
+        txtKodeCiri = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtPosPerNow = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -43,6 +53,8 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         rbIya = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         txtPertanyaan = new javax.swing.JLabel();
+
+        txtKodeCiri.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,10 +81,24 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         });
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
+        rbGroup.add(rbTidak);
         rbTidak.setText("Tidak");
+        rbTidak.setName("T"); // NOI18N
 
+        rbGroup.add(rbIya);
         rbIya.setText("Iya");
+        rbIya.setName("Y"); // NOI18N
+        rbIya.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbIyaActionPerformed(evt);
+            }
+        });
 
         txtPertanyaan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtPertanyaan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -162,20 +188,49 @@ public class PertanyaanDialog extends javax.swing.JDialog {
                 .addGap(37, 37, 37))
         );
 
+        rbIya.getAccessibleContext().setAccessibleName("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        prosesPertanyaan();
-        this.dispose();
+        
         UserFrame u = new UserFrame();
-        u.tampilkanPertanyaan();
+        u.txtId.setText(userId);
+        
+        
+        nextProsesPertanyaan(u);
+        this.dispose();
+        
+        
+        
+        int no = u.index+1;
+        if(no == u.recCiriMinatBakat.size()){
+            u.tampilkanPertanyaan("Selesai");
+            System.out.println("Berhasil dikirim");
+        }else{
+            u.tampilkanPertanyaan("Next");
+        }
+        
     }//GEN-LAST:event_btnNextActionPerformed
     
-    public void prosesPertanyaan() {
-        UserFrame u = new UserFrame();
+    public void nextProsesPertanyaan(UserFrame u) {
         u.index +=1;
-        
+        String jawaban = null;
+            if(rbIya.isSelected()){
+                jawaban = "Y";
+            }else if(rbTidak.isSelected()){
+                jawaban = "N";
+            }
+         try {
+             jawabanUserDAO.insertJawabanUser(userId, Integer.parseInt(txtKodeCiri.getText()), jawaban );
+         } catch (SQLException ex) {
+             Logger.getLogger(PertanyaanDialog.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    public void backProsesPertanyaan(UserFrame u) {
+        u.index -=1;
     }
     
     private void txtPertanyaanComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_txtPertanyaanComponentAdded
@@ -186,57 +241,42 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnKeluarActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        UserFrame u = new UserFrame();
+        u.txtId.setText(userId);
+        if (u.index > 0) {
+            backProsesPertanyaan(u);
+        u.tampilkanPertanyaan("Next");
+    } else {
+        // Handle the case where there's no previous question (index = 0)
+        // You might want to display a message or take appropriate action
+        System.out.println("No previous question available");
+    }
+
+    this.dispose();
+        
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void rbIyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbIyaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbIyaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PertanyaanDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PertanyaanDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PertanyaanDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PertanyaanDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PertanyaanDialog dialog = new PertanyaanDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
+    public javax.swing.JButton btnBack;
     private javax.swing.JButton btnKeluar;
-    private javax.swing.JButton btnNext;
+    public javax.swing.JButton btnNext;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.ButtonGroup rbGroup;
     private javax.swing.JRadioButton rbIya;
     private javax.swing.JRadioButton rbTidak;
+    public javax.swing.JLabel txtKodeCiri;
     public javax.swing.JLabel txtPertanyaan;
     public javax.swing.JLabel txtPosPerNow;
     public javax.swing.JLabel txtTotalPertanyaan;

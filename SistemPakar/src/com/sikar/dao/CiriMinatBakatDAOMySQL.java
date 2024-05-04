@@ -46,6 +46,7 @@ public class CiriMinatBakatDAOMySQL implements CiriMinatBakatDAO {
                 );
                 ciriMinatBakatList.add(ciriMinatBakat);
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

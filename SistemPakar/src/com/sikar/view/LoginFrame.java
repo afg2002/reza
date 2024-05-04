@@ -4,14 +4,18 @@
  */
 package com.sikar.view;
 
+import com.sikar.dao.JawabanUserDAO;
+import com.sikar.dao.JawabanUserDAOMySQL;
 import com.sikar.dao.OrangDAO;
 import com.sikar.dao.OrangDAOMySQL;
+import com.sikar.model.JawabanUser;
 import com.sikar.model.Orang;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +24,8 @@ import javax.swing.JOptionPane;
  */
 public class LoginFrame extends javax.swing.JFrame {
     private Orang o;
+    private JawabanUser j;
+    private JawabanUserDAO jawabanUserDAO = new JawabanUserDAOMySQL();
     private OrangDAO OrangDAO = new OrangDAOMySQL();
     /**
      * Creates new form LoginFrame
@@ -239,7 +245,19 @@ public class LoginFrame extends javax.swing.JFrame {
                 this.dispose();
                 UserFrame f = new UserFrame();
                 f.txtNamaUser.setText(o.getNama());
+                f.txtId.setText(o.getId());
+                try {
+                    List<String> jawaban = jawabanUserDAO.getAllJawabanUserByUserId(o.getId());
+                    System.out.println(jawaban.size());
+                    if(!jawaban.isEmpty()){
+                        f.btnDiagnosa.setText("Cek diagnosa (lagi)");
+                        f.status = true;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 f.setVisible(true);
+                
             }
         } else {
             JOptionPane.showMessageDialog(null, "Gagal, cek kembali username atau password anda!");

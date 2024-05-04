@@ -4,11 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface JawabanUserDAO {
-    void insertJawabanUser(int userId, String jawaban) throws SQLException;
+    void insertJawabanUser(String userId,int kodeCiri, String jawaban) throws SQLException;
 
-    List<String> getAllJawabanUserByUserId(int userId) throws SQLException;
+    List<String> getAllJawabanUserByUserId(String userId) throws SQLException;
 
-    void updateJawabanUser(int userId, String jawaban) throws SQLException;
+    void updateJawabanUser(String userId,int kodeCiri, String jawaban) throws SQLException;
 
-    void deleteJawabanUser(int userId) throws SQLException;
+    void deleteJawabanUser(String userId) throws SQLException;
 }
