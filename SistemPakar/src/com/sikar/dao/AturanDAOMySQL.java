@@ -14,9 +14,6 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import static java.util.logging.Level.SEVERE;
-import java.util.logging.Logger;
 /**
  *
  * @author admin01
@@ -54,7 +51,7 @@ public class AturanDAOMySQL implements AturanDAO {
     public List<Aturan> getAll() throws SQLException {
         Statement st = DatabaseMySQL.connectDB().createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM aturan");
-        List<Aturan>list = new ArrayList<Aturan>();
+        List<Aturan>list = new ArrayList<>();
         while(rs.next()){
             Aturan a = new Aturan();
             a.setKode_aturan(rs.getString("kode_aturan"));

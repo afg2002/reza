@@ -198,7 +198,7 @@ public class CiriMinatBakatFrame extends javax.swing.JFrame {
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        AdminFrame f = new AdminFrame();
+        UserFrame f = new UserFrame();
         f.setVisible(true);
     }//GEN-LAST:event_btnKembaliActionPerformed
 

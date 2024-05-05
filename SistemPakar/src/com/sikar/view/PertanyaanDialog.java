@@ -1,16 +1,26 @@
 
 package com.sikar.view;
 
+import com.sikar.dao.AturanDAO;
+import com.sikar.dao.AturanDAOMySQL;
 import com.sikar.dao.JawabanUserDAO;
 import com.sikar.dao.JawabanUserDAOMySQL;
+import com.sikar.model.Aturan;
 import com.sikar.model.JawabanUser;
 import com.sikar.model.Orang;
 import java.awt.Frame;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,12 +29,14 @@ import java.util.logging.Logger;
 public class PertanyaanDialog extends javax.swing.JDialog {
 
      private final JawabanUserDAO jawabanUserDAO;
+     private final AturanDAO aturanDAO;
      public List<JawabanUser> recJawabanUser = new ArrayList<>();
      private String userId;
     public PertanyaanDialog(Frame parent, boolean modal, String userId) {
         super(parent, modal);
         initComponents();
         jawabanUserDAO = new JawabanUserDAOMySQL();
+        aturanDAO = new AturanDAOMySQL();
         this.userId = userId; // Set userId in the constructor
         System.out.println("userId: " + this.userId); // Now prints the correct userId value
     }
@@ -198,19 +210,33 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         UserFrame u = new UserFrame();
         u.txtId.setText(userId);
         
-        
-        nextProsesPertanyaan(u);
-        this.dispose();
-        
-        
-        
-        int no = u.index+1;
-        if(no == u.recCiriMinatBakat.size()){
-            u.tampilkanPertanyaan("Selesai");
-            System.out.println("Berhasil dikirim");
+        if(rbIya.isSelected() || rbTidak.isSelected()){
+            nextProsesPertanyaan(u);
+            this.dispose();
+
+
+
+            int no = u.index+1;
+            if(no == u.recCiriMinatBakat.size()){
+                u.tampilkanPertanyaan("Selesai");
+                try {
+                    System.out.println(cekKesamaanJawabanDenganAturan());
+                } catch (SQLException ex) {
+                    Logger.getLogger(PertanyaanDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+;
+                
+            }else{
+                u.tampilkanPertanyaan("Next");
+            }
+            
+            
         }else{
-            u.tampilkanPertanyaan("Next");
+            JOptionPane.showMessageDialog(rootPane, "Tolong diisi");
         }
+        
+        
+       
         
     }//GEN-LAST:event_btnNextActionPerformed
     
@@ -229,6 +255,51 @@ public class PertanyaanDialog extends javax.swing.JDialog {
          }
     }
     
+    
+  public List<Aturan> cekKesamaanJawabanDenganAturan() throws SQLException {
+        List<Aturan> semuaAturan = aturanDAO.getAll();
+        List<String> semuaJawaban = jawabanUserDAO.getAllJawabanUserByUserIdAndStatus(userId, "Y");
+
+        // Map untuk menyimpan jumlah kecocokan setiap aturan dengan jawaban pengguna
+        Map<Aturan, Integer> kecocokanAturan = new HashMap<>();
+
+        // Periksa setiap aturan
+        for (Aturan aturan : semuaAturan) {
+            String[] kriteriaAturan = aturan.getJika().split(","); // Pisahkan string menjadi array string
+            int kecocokan = 0;
+
+            // Periksa setiap jawaban
+            for (String jawaban : semuaJawaban) {
+                if (Arrays.asList(kriteriaAturan).contains(jawaban)) {
+                    kecocokan++; // Tambahkan jumlah kecocokan
+                }
+            }
+
+            // Simpan jumlah kecocokan aturan
+            kecocokanAturan.put(aturan, kecocokan);
+        }
+
+        // Sorting berdasarkan jumlah kecocokan, dengan Comparator untuk membandingkan nilai
+        List<Map.Entry<Aturan, Integer>> sortedList = new ArrayList<>(kecocokanAturan.entrySet());
+        sortedList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+        // Ambil 3 aturan teratas
+        List<Aturan> topThreeAturan = new ArrayList<>();
+        for (int i = 0; i < Math.min(3, sortedList.size()); i++) {
+            topThreeAturan.add(sortedList.get(i).getKey());
+            System.out.println("Aturan " + sortedList.get(i).getKey().getKode_aturan()+ ": " + sortedList.get(i).getValue() + " kecocokan");
+        }
+
+        return topThreeAturan;
+    }
+
+
+
+
+
+
+
+    
     public void backProsesPertanyaan(UserFrame u) {
         u.index -=1;
     }
@@ -238,7 +309,7 @@ public class PertanyaanDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtPertanyaanComponentAdded
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
     }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

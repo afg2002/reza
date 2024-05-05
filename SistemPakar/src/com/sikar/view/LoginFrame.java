@@ -38,7 +38,7 @@ public class LoginFrame extends javax.swing.JFrame {
         boolean hasil = false;
         try {
             o = OrangDAO.loadByUsername(user);
-            if(user.equals(o.getUsername())&&pass.equals(o.getPassword())){
+            if(user.equals(o.getUsername())&&pass.equals(o.getPassword( ))){
                 hasil =true;
             }else{
                 hasil = false;

@@ -4,76 +4,60 @@
  */
 package com.sikar.view;
 
-import com.sikar.dao.JurusanDAO;
-import com.sikar.dao.JurusanDAOMySQL;
 import com.sikar.dao.KecerdasanMinatDAO;
 import com.sikar.dao.KecerdasanMinatDAOMySQL;
-import com.sikar.model.Jurusan;
 import com.sikar.model.KecerdasanMinat;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import java.sql.SQLException;
-import java.util.HashMap;
 /**
  *
  * @author admin01
  */
-public class JurusanFrame extends javax.swing.JFrame {
-    private final JurusanDAO jurusanDAO;
+public class KecerdasanMinatFrame extends javax.swing.JFrame {
     private final KecerdasanMinatDAO kecerdasanMinatDAO;
-    private List<Jurusan> recJurusan = new ArrayList<>();
-    private HashMap kecerdasanMinatMap =  new HashMap<>(); // To store the mapping between string values and their IDs
+    private List<KecerdasanMinat> recKecerdasanMinat = new ArrayList<>();
     /**
      * Creates new form TambahGejalaFrame
-     * @throws java.sql.SQLException
      */
-    public JurusanFrame() throws SQLException {
+    public KecerdasanMinatFrame() {
         initComponents();
-        jurusanDAO = new JurusanDAOMySQL();
         kecerdasanMinatDAO = new KecerdasanMinatDAOMySQL();
         initStatus();
+
         
     }
 
-    public void loadAllJurusan() throws SQLException {
-        recJurusan = jurusanDAO.getAllJurusan();
+    public void loadKecerdasanMinatBakat() {
+        recKecerdasanMinat = kecerdasanMinatDAO.getAll();
     }
 
     void tableFill() {
-        Object data[][] = new Object[recJurusan.size()][5];
+        Object data[][] = new Object[recKecerdasanMinat.size()][4];
         int x = 0, no = 1;
-        for (Jurusan j : recJurusan) {
+        for (KecerdasanMinat c : recKecerdasanMinat) {
             data[x][0] = no++;
-            data[x][1] = j.getId();
-            data[x][2] = j.getIdKecerdasan();
-            data[x][3] = j.getNamaKecerdasan();
-            data[x][4] = j.getNamaJurusan();
+            data[x][1] = c.getId();
+            data[x][2] = c.getNama_kecerdasan();
+            data[x][3] = c.getDeskripsi();
             x++;
         }
-        String judul[] = {"No","ID", "ID Minat Bakat","Nama Minat",  "Nama Jurusan"};
-        tblJurusan.setModel(new DefaultTableModel(data, judul));
+        String judul[] = {"No","ID", "Nama Kecerdasan", "Deskripsi"};
+        tabelKecerdasanMinat.setModel(new DefaultTableModel(data, judul));
     }
 
-  
 
-
-    void initStatus() throws SQLException {
-      
-        loadAllJurusan();
+    void initStatus() {
+        loadKecerdasanMinatBakat();
         tableFill();
     }
 
-    void refresh_page() throws SQLException {
+    void refresh_page() {
         this.dispose();
-        JurusanFrame f = new JurusanFrame();
+        KecerdasanMinatFrame f = new KecerdasanMinatFrame();
         f.setVisible(true);
     }
 
@@ -94,7 +78,7 @@ public class JurusanFrame extends javax.swing.JFrame {
         DataCiriMinatBakatBox = new javax.swing.JPanel();
         DataGejala = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblJurusan = new javax.swing.JTable();
+        tabelKecerdasanMinat = new javax.swing.JTable();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -105,7 +89,7 @@ public class JurusanFrame extends javax.swing.JFrame {
         navbar.setBackground(new java.awt.Color(254, 254, 254));
 
         TambahGejala.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
-        TambahGejala.setText("Jurusan");
+        TambahGejala.setText("Tambah Minat Bakat");
 
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +105,7 @@ public class JurusanFrame extends javax.swing.JFrame {
             .addGroup(navbarLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(TambahGejala)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
                 .addComponent(btnKembali)
                 .addGap(36, 36, 36))
         );
@@ -138,9 +122,9 @@ public class JurusanFrame extends javax.swing.JFrame {
         DataCiriMinatBakatBox.setBackground(new java.awt.Color(254, 254, 254));
 
         DataGejala.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        DataGejala.setText("Data Jurusan");
+        DataGejala.setText("Data Minat Bakat");
 
-        tblJurusan.setModel(new javax.swing.table.DefaultTableModel(
+        tabelKecerdasanMinat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -151,7 +135,7 @@ public class JurusanFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(tblJurusan);
+        jScrollPane3.setViewportView(tabelKecerdasanMinat);
 
         javax.swing.GroupLayout DataCiriMinatBakatBoxLayout = new javax.swing.GroupLayout(DataCiriMinatBakatBox);
         DataCiriMinatBakatBox.setLayout(DataCiriMinatBakatBoxLayout);
@@ -160,7 +144,9 @@ public class JurusanFrame extends javax.swing.JFrame {
             .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DataGejala)
+                    .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                        .addComponent(DataGejala)
+                        .addGap(0, 454, Short.MAX_VALUE))
                     .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                         .addGap(20, 20, 20))))
@@ -171,8 +157,8 @@ public class JurusanFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(DataGejala)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout bgBlueLayout = new javax.swing.GroupLayout(bgBlue);
@@ -189,9 +175,9 @@ public class JurusanFrame extends javax.swing.JFrame {
             bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgBlueLayout.createSequentialGroup()
                 .addComponent(navbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(DataCiriMinatBakatBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,13 +218,13 @@ public class JurusanFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JurusanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KecerdasanMinatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JurusanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KecerdasanMinatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JurusanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KecerdasanMinatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JurusanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KecerdasanMinatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -252,11 +238,7 @@ public class JurusanFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new JurusanFrame().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(JurusanFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new KecerdasanMinatFrame().setVisible(true);
             }
         });
     }
@@ -270,6 +252,6 @@ public class JurusanFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel navbar;
-    private javax.swing.JTable tblJurusan;
+    private javax.swing.JTable tabelKecerdasanMinat;
     // End of variables declaration//GEN-END:variables
 }

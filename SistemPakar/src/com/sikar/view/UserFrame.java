@@ -316,7 +316,8 @@ public class UserFrame extends javax.swing.JFrame {
         if(status){
             System.out.println("lagi");
             try {
-                jawabanUserDAO.deleteJawabanUser(txtId.getText());
+                 PertanyaanDialog pd = new PertanyaanDialog(this, true, txtId.getText());
+                 System.out.println(pd.cekKesamaanJawabanDenganAturan());
             } catch (SQLException ex) {
                 Logger.getLogger(UserFrame.class.getName()).log(Level.SEVERE, null, ex);
             }

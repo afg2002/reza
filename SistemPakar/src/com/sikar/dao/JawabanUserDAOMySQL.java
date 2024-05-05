@@ -8,6 +8,8 @@ import com.sikar.database.DatabaseMySQL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JawabanUserDAOMySQL implements JawabanUserDAO {
     private Connection connection;
@@ -30,8 +32,8 @@ public class JawabanUserDAOMySQL implements JawabanUserDAO {
         statement.executeUpdate();
     }
 }
-
-    @Override
+   
+   @Override
     public List<String> getAllJawabanUserByUserId(String userId) throws SQLException {
         List<String> jawabanList = new ArrayList<>();
         String sql = "SELECT jawaban FROM jawaban_user WHERE user_id = ?";
@@ -42,6 +44,31 @@ public class JawabanUserDAOMySQL implements JawabanUserDAO {
                     jawabanList.add(resultSet.getString("jawaban"));
                 }
             }
+        }
+        return jawabanList;
+    }
+   
+    /**
+     *
+     * @param userId
+     * @param status
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public List<String> getAllJawabanUserByUserIdAndStatus(String userId, String status) {
+        List<String> jawabanList = new ArrayList<>();
+        String sql = "SELECT kode_ciri FROM jawaban_user WHERE user_id = ? AND jawaban = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, userId);
+            statement.setString(2, status);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    jawabanList.add(resultSet.getString("kode_ciri"));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JawabanUserDAOMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return jawabanList;
     }
