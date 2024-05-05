@@ -19,6 +19,27 @@
 CREATE DATABASE IF NOT EXISTS `javasikar` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `javasikar`;
 
+-- Dumping structure for table javasikar.orang
+CREATE TABLE IF NOT EXISTS `orang` (
+  `id` varchar(11) NOT NULL,
+  `nama` varchar(40) NOT NULL,
+  `username` varchar(16) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `level` varchar(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table javasikar.orang: ~2 rows (approximately)
+INSERT IGNORE INTO `orang` (`id`, `nama`, `username`, `password`, `level`) VALUES
+	('SPK001', 'Super Admin', 'admin', 'admin', 'Admin'),
+	('SPK002', 'Super User', 'user', 'user', 'User');
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
 -- Dumping structure for table javasikar.aturan
 CREATE TABLE IF NOT EXISTS `aturan` (
   `kode_aturan` varchar(11) NOT NULL,
@@ -92,7 +113,30 @@ CREATE TABLE IF NOT EXISTS `jawaban_user` (
   CONSTRAINT `jawaban_user_ibfk_2` FOREIGN KEY (`kode_ciri`) REFERENCES `ciri_minat_bakat` (`kode_ciri`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table javasikar.jawaban_user: ~0 rows (approximately)
+
+-- Dumping structure for table javasikar.kecerdasan_minat
+CREATE TABLE IF NOT EXISTS `kecerdasan_minat` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama_kecerdasan` varchar(50) NOT NULL,
+  `deskripsi` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table javasikar.kecerdasan_minat: ~10 rows (approximately)
+INSERT IGNORE INTO `kecerdasan_minat` (`id`, `nama_kecerdasan`, `deskripsi`) VALUES
+	(1, 'Kecerdasan Linguistic-Verbal', 'Kecerdasan ini mencakup kemampuan dalam bahasa, baik lisan maupun tulisan.'),
+	(2, 'Kecerdasan Logika-Matematik', 'Kecerdasan ini berkaitan dengan pemecahan masalah, logika, dan matematika.'),
+	(3, 'Kecerdasan Spasial-Visual', 'Kecerdasan ini berkaitan dengan kemampuan visualisasi dan pemahaman terhadap ruang dan bentuk.'),
+	(4, 'Kecerdasan Kinetik', 'Kecerdasan ini mencakup kemampuan motorik dan fisik.'),
+	(5, 'Kecerdasan Ritmik-Musik', 'Kecerdasan ini berkaitan dengan kepekaan terhadap musik, ritme, dan melodi.'),
+	(6, 'Kecerdasan Interpersonal', 'Kecerdasan ini berkaitan dengan kemampuan dalam berinteraksi dan memahami orang lain.'),
+	(7, 'Kecerdasan Intrapersonal', 'Kecerdasan ini berkaitan dengan pemahaman dan pengendalian diri sendiri.'),
+	(8, 'Kecerdasan Naturalis', 'Kecerdasan ini berkaitan dengan pemahaman dan keterlibatan dengan alam.'),
+	(9, 'Kecerdasan Eksistensial', 'Kecerdasan ini berkaitan dengan pertanyaan-pertanyaan tentang makna hidup, eksistensi, dan tujuan hidup.'),
+	(10, 'testa', 'testa');
+
+
+
 
 -- Dumping structure for table javasikar.jurusan
 CREATE TABLE IF NOT EXISTS `jurusan` (
@@ -156,44 +200,3 @@ INSERT IGNORE INTO `jurusan` (`id`, `id_kecerdasan`, `nama_jurusan`) VALUES
 	(48, 9, 'Ilmu Sejarah'),
 	(51, 1, 'testa');
 
--- Dumping structure for table javasikar.kecerdasan_minat
-CREATE TABLE IF NOT EXISTS `kecerdasan_minat` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nama_kecerdasan` varchar(50) NOT NULL,
-  `deskripsi` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table javasikar.kecerdasan_minat: ~10 rows (approximately)
-INSERT IGNORE INTO `kecerdasan_minat` (`id`, `nama_kecerdasan`, `deskripsi`) VALUES
-	(1, 'Kecerdasan Linguistic-Verbal', 'Kecerdasan ini mencakup kemampuan dalam bahasa, baik lisan maupun tulisan.'),
-	(2, 'Kecerdasan Logika-Matematik', 'Kecerdasan ini berkaitan dengan pemecahan masalah, logika, dan matematika.'),
-	(3, 'Kecerdasan Spasial-Visual', 'Kecerdasan ini berkaitan dengan kemampuan visualisasi dan pemahaman terhadap ruang dan bentuk.'),
-	(4, 'Kecerdasan Kinetik', 'Kecerdasan ini mencakup kemampuan motorik dan fisik.'),
-	(5, 'Kecerdasan Ritmik-Musik', 'Kecerdasan ini berkaitan dengan kepekaan terhadap musik, ritme, dan melodi.'),
-	(6, 'Kecerdasan Interpersonal', 'Kecerdasan ini berkaitan dengan kemampuan dalam berinteraksi dan memahami orang lain.'),
-	(7, 'Kecerdasan Intrapersonal', 'Kecerdasan ini berkaitan dengan pemahaman dan pengendalian diri sendiri.'),
-	(8, 'Kecerdasan Naturalis', 'Kecerdasan ini berkaitan dengan pemahaman dan keterlibatan dengan alam.'),
-	(9, 'Kecerdasan Eksistensial', 'Kecerdasan ini berkaitan dengan pertanyaan-pertanyaan tentang makna hidup, eksistensi, dan tujuan hidup.'),
-	(10, 'testa', 'testa');
-
--- Dumping structure for table javasikar.orang
-CREATE TABLE IF NOT EXISTS `orang` (
-  `id` varchar(11) NOT NULL,
-  `nama` varchar(40) NOT NULL,
-  `username` varchar(16) NOT NULL,
-  `password` varchar(16) NOT NULL,
-  `level` varchar(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table javasikar.orang: ~2 rows (approximately)
-INSERT IGNORE INTO `orang` (`id`, `nama`, `username`, `password`, `level`) VALUES
-	('SPK001', 'Super Admin', 'admin', 'admin', 'Admin'),
-	('SPK002', 'Super User', 'user', 'user', 'User');
-
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
