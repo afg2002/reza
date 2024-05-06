@@ -17,4 +17,5 @@ public interface AturanDAO {
     public void update(Aturan a) throws SQLException;
     public void delete(String kodeAturan) throws SQLException;
     public List<Aturan> getAll() throws SQLException;
+    public List<Aturan> getAturanKecerdasanWithJurusan();
 }

@@ -7,8 +7,11 @@ package com.sikar.model;
 import lombok.Data;
 
 @Data
+
 public class Aturan {
     private String kode_aturan;
     private String jika;
     private String maka;
+    
+    private KecerdasanMinat kecerdasanMinat;
 }

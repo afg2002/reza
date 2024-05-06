@@ -257,11 +257,12 @@ public class PertanyaanDialog extends javax.swing.JDialog {
     
     
   public List<Aturan> cekKesamaanJawabanDenganAturan() throws SQLException {
-        List<Aturan> semuaAturan = aturanDAO.getAll();
+        List<Aturan> semuaAturan = aturanDAO.getAturanKecerdasanWithJurusan();
         List<String> semuaJawaban = jawabanUserDAO.getAllJawabanUserByUserIdAndStatus(userId, "Y");
 
         // Map untuk menyimpan jumlah kecocokan setiap aturan dengan jawaban pengguna
         Map<Aturan, Integer> kecocokanAturan = new HashMap<>();
+        System.out.println(semuaAturan);
 
         // Periksa setiap aturan
         for (Aturan aturan : semuaAturan) {
@@ -289,6 +290,19 @@ public class PertanyaanDialog extends javax.swing.JDialog {
             topThreeAturan.add(sortedList.get(i).getKey());
             System.out.println("Aturan " + sortedList.get(i).getKey().getKode_aturan()+ ": " + sortedList.get(i).getValue() + " kecocokan");
         }
+        
+         // Display top three rules using JOptionPane
+        String message = "Hasil Top 3 Aturan: \n\n";
+        for (int i = 0; i < Math.min(3, sortedList.size()); i++) {
+            Aturan aturan = sortedList.get(i).getKey();
+            int kecocokan = sortedList.get(i).getValue();
+
+            message += "Aturan " + aturan.getKode_aturan() + ": " + kecocokan + " Kecocokan\n";
+            message += "Jika: " + aturan.getJika() + "\n";
+            message += "Maka: " + aturan.getMaka() + "\n\n";
+            message +=  aturan.getKecerdasanMinat().getNama_kecerdasan() + "\n\n\n";
+        }
+         JOptionPane.showMessageDialog(null, message, "Top 3 Aturan", JOptionPane.INFORMATION_MESSAGE);
 
         return topThreeAturan;
     }

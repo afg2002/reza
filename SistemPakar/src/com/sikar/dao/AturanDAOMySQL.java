@@ -6,6 +6,7 @@ package com.sikar.dao;
 
 import com.sikar.database.DatabaseMySQL;
 import com.sikar.model.Aturan;
+import com.sikar.model.KecerdasanMinat;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
+import static java.util.Collections.list;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author admin01
@@ -60,5 +64,32 @@ public class AturanDAOMySQL implements AturanDAO {
             list.add(a);
         }
         return list;
+    }
+    
+    @Override
+    public List<Aturan> getAturanKecerdasanWithJurusan() {
+        List<Aturan>list = new ArrayList<>();
+        try {
+            Statement st = DatabaseMySQL.connectDB().createStatement();
+            ResultSet rs = st.executeQuery("SELECT aturan.*,kecerdasan_minat.*"
+                    + " FROM aturan INNER JOIN kecerdasan_minat ON aturan.maka = kecerdasan_minat.id;");
+            
+            while(rs.next()){
+                Aturan a = new Aturan();
+                a.setKode_aturan(rs.getString("kode_aturan"));
+                a.setJika(rs.getString("jika"));
+                a.setMaka(rs.getString("maka"));
+                KecerdasanMinat k = new KecerdasanMinat();
+                k.setId(rs.getInt("id"));
+                k.setDeskripsi(rs.getString("deskripsi"));
+                k.setNama_kecerdasan(rs.getString("nama_kecerdasan"));
+                a.setKecerdasanMinat(k);
+                list.add(a);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AturanDAOMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         return list;
     }
 }
