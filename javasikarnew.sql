@@ -50,15 +50,15 @@ CREATE TABLE IF NOT EXISTS `aturan` (
 
 -- Dumping data for table javasikar.aturan: ~9 rows (approximately)
 INSERT IGNORE INTO `aturan` (`kode_aturan`, `jika`, `maka`) VALUES
-	('A01', 'C1,C2,C3,C4,C5', '1'),
-	('A02', 'C6,C7,C8,C9,C10', '2'),
-	('A03', 'C11,C12,C13,C14,C15', '3'),
-	('A04', 'C16,C17,C18,C19,C20', '4'),
-	('A05', 'C21,C22,C23,C24,C25', '5'),
-	('A06', 'C26,C27,C28,C29,C30', '6'),
-	('A07', 'C31,C32,C33,C34,C35', '7'),
-	('A08', 'C36,C37,C38,C39,C40', '8'),
-	('A09', 'C41,C42,C43,C44,C45', '9');
+	('A01', '1,2,3,4,5', '1'),
+	('A02', '6,7,8,9,10', '2'),
+	('A03', '11,12,13,14,15', '3'),
+	('A04', '16,17,18,19,20', '4'),
+	('A05', '21,22,23,24,25', '5'),
+	('A06', '26,27,28,29,30', '6'),
+	('A07', '31,32,33,34,35', '7'),
+	('A08', '36,37,38,39,40', '8'),
+	('A09', '41,42,43,44,45', '9');
 
 -- Dumping structure for table javasikar.ciri_minat_bakat
 CREATE TABLE IF NOT EXISTS `ciri_minat_bakat` (
