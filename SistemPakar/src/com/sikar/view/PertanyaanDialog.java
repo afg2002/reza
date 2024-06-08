@@ -3,9 +3,12 @@ package com.sikar.view;
 
 import com.sikar.dao.AturanDAO;
 import com.sikar.dao.AturanDAOMySQL;
+import com.sikar.dao.HasilDAO;
+import com.sikar.dao.HasilDAOMySQL;
 import com.sikar.dao.JawabanUserDAO;
 import com.sikar.dao.JawabanUserDAOMySQL;
 import com.sikar.model.Aturan;
+import com.sikar.model.Hasil;
 import com.sikar.model.JawabanUser;
 import com.sikar.model.Orang;
 import java.awt.Frame;
@@ -28,17 +31,35 @@ import javax.swing.JOptionPane;
  */
 public class PertanyaanDialog extends javax.swing.JDialog {
 
-     private final JawabanUserDAO jawabanUserDAO;
-     private final AturanDAO aturanDAO;
-     public List<JawabanUser> recJawabanUser = new ArrayList<>();
-     private String userId;
+    private final JawabanUserDAO jawabanUserDAO;
+    private final AturanDAO aturanDAO;
+    public List<JawabanUser> recJawabanUser = new ArrayList<>();
+    private String userId;
+    private DataDiriForm dataDiriForm;
+    private int currentQuestionIndex = 0;
+    
     public PertanyaanDialog(Frame parent, boolean modal, String userId) {
         super(parent, modal);
         initComponents();
         jawabanUserDAO = new JawabanUserDAOMySQL();
         aturanDAO = new AturanDAOMySQL();
-        this.userId = userId; // Set userId in the constructor
-        System.out.println("userId: " + this.userId); // Now prints the correct userId value
+        this.userId = userId;
+        dataDiriForm = new DataDiriForm();
+        dataDiriForm.txtId.setText(userId);
+        loadPertanyaan();
+        System.out.println("userId: " + this.userId);
+    }
+    
+    private void loadPertanyaan() {
+        if (currentQuestionIndex < dataDiriForm.recCiriMinatBakat.size()) {
+            txtPertanyaan.setText(dataDiriForm.recCiriMinatBakat.get(currentQuestionIndex).getPertanyaan());
+            txtKodeCiri.setText(dataDiriForm.recCiriMinatBakat.get(currentQuestionIndex).getKodeCiri());
+            txtPosPerNow.setText(String.valueOf(currentQuestionIndex + 1));
+            txtTotalPertanyaan.setText(String.valueOf(dataDiriForm.recCiriMinatBakat.size()));
+        } else {
+            txtPertanyaan.setText("Selesai");
+            txtKodeCiri.setText("");
+        }
     }
     
     
@@ -100,10 +121,17 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         });
 
         rbGroup.add(rbTidak);
+        rbTidak.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         rbTidak.setText("Tidak");
         rbTidak.setName("T"); // NOI18N
+        rbTidak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTidakActionPerformed(evt);
+            }
+        });
 
         rbGroup.add(rbIya);
+        rbIya.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         rbIya.setText("Iya");
         rbIya.setName("Y"); // NOI18N
         rbIya.addActionListener(new java.awt.event.ActionListener() {
@@ -127,8 +155,8 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtPertanyaan, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtPertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -144,38 +172,32 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPosPerNow, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotalPertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(266, 266, 266)
+                .addComponent(btnKeluar)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(rbIya, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rbTidak, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(184, 184, 184))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 63, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rbTidak, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(98, 98, 98))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(rbIya, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(274, 274, 274))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPosPerNow, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTotalPertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnKeluar)
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(222, 222, 222)
+                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,15 +211,18 @@ public class PertanyaanDialog extends javax.swing.JDialog {
                     .addComponent(btnKeluar))
                 .addGap(26, 26, 26)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(77, 77, 77)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbTidak)
-                    .addComponent(rbIya))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addComponent(rbIya)
+                    .addComponent(rbTidak))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))))
         );
 
         rbIya.getAccessibleContext().setAccessibleName("");
@@ -206,53 +231,30 @@ public class PertanyaanDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        
-        UserFrame u = new UserFrame();
-        u.txtId.setText(userId);
-        
-        if(rbIya.isSelected() || rbTidak.isSelected()){
-            nextProsesPertanyaan(u);
-            this.dispose();
-
-
-
-            int no = u.index+1;
-            if(no == u.recCiriMinatBakat.size()){
-                u.tampilkanPertanyaan("Selesai");
+        if (rbIya.isSelected() || rbTidak.isSelected()) {
+            nextProsesPertanyaan();
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= dataDiriForm.recCiriMinatBakat.size()) {
                 try {
                     System.out.println(cekKesamaanJawabanDenganAturan());
                 } catch (SQLException ex) {
                     Logger.getLogger(PertanyaanDialog.class.getName()).log(Level.SEVERE, null, ex);
                 }
-;
-                
-            }else{
-                u.tampilkanPertanyaan("Next");
+            } else {
+                loadPertanyaan();
             }
-            
-            
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Tolong diisi");
         }
-        
-        
-       
-        
     }//GEN-LAST:event_btnNextActionPerformed
     
-    public void nextProsesPertanyaan(UserFrame u) {
-        u.index +=1;
-        String jawaban = null;
-            if(rbIya.isSelected()){
-                jawaban = "Y";
-            }else if(rbTidak.isSelected()){
-                jawaban = "N";
-            }
-         try {
-             jawabanUserDAO.insertJawabanUser(userId, Integer.parseInt(txtKodeCiri.getText()), jawaban );
-         } catch (SQLException ex) {
-             Logger.getLogger(PertanyaanDialog.class.getName()).log(Level.SEVERE, null, ex);
-         }
+    private void nextProsesPertanyaan() {
+        String jawaban = rbIya.isSelected() ? "Y" : "N";
+        try {
+            jawabanUserDAO.insertJawabanUser(userId, Integer.parseInt(txtKodeCiri.getText()), jawaban);
+        } catch (SQLException ex) {
+            Logger.getLogger(PertanyaanDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
@@ -260,50 +262,48 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         List<Aturan> semuaAturan = aturanDAO.getAturanKecerdasanWithJurusan();
         List<String> semuaJawaban = jawabanUserDAO.getAllJawabanUserByUserIdAndStatus(userId, "Y");
 
-        // Map untuk menyimpan jumlah kecocokan setiap aturan dengan jawaban pengguna
         Map<Aturan, Integer> kecocokanAturan = new HashMap<>();
         System.out.println(semuaAturan);
 
-        // Periksa setiap aturan
         for (Aturan aturan : semuaAturan) {
-            String[] kriteriaAturan = aturan.getJika().split(","); // Pisahkan string menjadi array string
+            String[] kriteriaAturan = aturan.getJika().split(",");
             int kecocokan = 0;
 
-            // Periksa setiap jawaban
             for (String jawaban : semuaJawaban) {
                 if (Arrays.asList(kriteriaAturan).contains(jawaban)) {
-                    kecocokan++; // Tambahkan jumlah kecocokan
+                    kecocokan++;
                 }
             }
 
-            // Simpan jumlah kecocokan aturan
             kecocokanAturan.put(aturan, kecocokan);
         }
 
-        // Sorting berdasarkan jumlah kecocokan, dengan Comparator untuk membandingkan nilai
         List<Map.Entry<Aturan, Integer>> sortedList = new ArrayList<>(kecocokanAturan.entrySet());
         sortedList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
 
-        // Ambil 3 aturan teratas
         List<Aturan> topThreeAturan = new ArrayList<>();
-        for (int i = 0; i < Math.min(3, sortedList.size()); i++) {
-            topThreeAturan.add(sortedList.get(i).getKey());
-            System.out.println("Aturan " + sortedList.get(i).getKey().getKode_aturan()+ ": " + sortedList.get(i).getValue() + " kecocokan");
-        }
-        
-         // Display top three rules using JOptionPane
-        String message = "Hasil Top 3 Aturan: \n\n";
-        for (int i = 0; i < Math.min(3, sortedList.size()); i++) {
+        String message = "Hasil Aturan: \n\n";
+        for (int i = 0; i < Math.min(5, sortedList.size()); i++) {
             Aturan aturan = sortedList.get(i).getKey();
             int kecocokan = sortedList.get(i).getValue();
 
             message += "Aturan " + aturan.getKode_aturan() + ": " + kecocokan + " Kecocokan\n";
             message += "Jika: " + aturan.getJika() + "\n";
             message += "Maka: " + aturan.getMaka() + "\n\n";
-            message +=  aturan.getKecerdasanMinat().getNama_kecerdasan() + "\n\n\n";
-        }
-         JOptionPane.showMessageDialog(null, message, "Top 3 Aturan", JOptionPane.INFORMATION_MESSAGE);
+            message += aturan.getKecerdasanMinat().getNama_kecerdasan() + "\n\n\n";
 
+            topThreeAturan.add(aturan);
+        }
+        JOptionPane.showMessageDialog(null, message, "Top 3 Aturan", JOptionPane.INFORMATION_MESSAGE);
+        HasilDAO hasilDAO = new HasilDAOMySQL();
+    
+        // Simpan aturan yang memiliki kecocokan lebih dari atau sama dengan 4 ke dalam database
+        for (Map.Entry<Aturan, Integer> entry : kecocokanAturan.entrySet()) {
+            if (entry.getValue() >= 4) {
+                Hasil hasil = new Hasil(userId, Integer.parseInt(entry.getKey().getMaka()), entry.getValue());
+                hasilDAO.insertHasil(hasil);
+            }
+        }
         return topThreeAturan;
     }
 
@@ -314,9 +314,6 @@ public class PertanyaanDialog extends javax.swing.JDialog {
 
 
     
-    public void backProsesPertanyaan(UserFrame u) {
-        u.index -=1;
-    }
     
     private void txtPertanyaanComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_txtPertanyaanComponentAdded
         // TODO add your handling code here:
@@ -327,24 +324,21 @@ public class PertanyaanDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        UserFrame u = new UserFrame();
-        u.txtId.setText(userId);
-        if (u.index > 0) {
-            backProsesPertanyaan(u);
-        u.tampilkanPertanyaan("Next");
-    } else {
-        // Handle the case where there's no previous question (index = 0)
-        // You might want to display a message or take appropriate action
-        System.out.println("No previous question available");
-    }
-
-    this.dispose();
-        
+         if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadPertanyaan();
+        } else {
+            System.out.println("No previous question available");
+        }
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void rbIyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbIyaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbIyaActionPerformed
+
+    private void rbTidakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTidakActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbTidakActionPerformed
 
     /**
      * @param args the command line arguments

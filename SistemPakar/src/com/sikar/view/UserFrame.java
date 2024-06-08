@@ -4,14 +4,7 @@
  */
 package com.sikar.view;
 
-import com.sikar.dao.CiriMinatBakatDAO;
-import com.sikar.dao.CiriMinatBakatDAOMySQL;
-import com.sikar.dao.JawabanUserDAO;
-import com.sikar.dao.JawabanUserDAOMySQL;
-import com.sikar.model.CiriMinatBakat;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,40 +14,16 @@ import java.util.logging.Logger;
  */
 public class UserFrame extends javax.swing.JFrame {
 
-    private final CiriMinatBakatDAO ciriMinatBakatDAO;
-    private JawabanUserDAO jawabanUserDAO = new JawabanUserDAOMySQL();
-    public List<CiriMinatBakat> recCiriMinatBakat = new ArrayList<>();
-    public static int index = 0;
-    public static boolean status = false;
+  
 
     /**
      * Creates new form UserFrame
      */
     public UserFrame() {
         initComponents();
-        ciriMinatBakatDAO = new CiriMinatBakatDAOMySQL();
-        loadAllPertanyaan();
     }
 
-    public void loadAllPertanyaan() {
-        recCiriMinatBakat = ciriMinatBakatDAO.getAll();
-    }
-
-    public void tampilkanPertanyaan(String status) {
-        // Memastikan index berada dalam rentang yang benar
-        if (index >= 0 && index < recCiriMinatBakat.size()) {
-            CiriMinatBakat pertanyaan = recCiriMinatBakat.get(index);
-            int totalPertanyaan= recCiriMinatBakat.size();
-            PertanyaanDialog pd = new PertanyaanDialog(this, true, txtId.getText());
-            pd.setLocationRelativeTo(null);
-            pd.txtPertanyaan.setText("<html><p style=\"word-wrap: break-word;\">" + pertanyaan.getPertanyaan() + "</p></html>");
-            pd.txtTotalPertanyaan.setText(String.valueOf(totalPertanyaan));
-            pd.txtPosPerNow.setText(String.valueOf(index+1));
-            pd.txtKodeCiri.setText(pertanyaan.getKodeCiri());
-            pd.btnNext.setText(status);
-            pd.setVisible(true);
-        }
-    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,8 +42,6 @@ public class UserFrame extends javax.swing.JFrame {
         DashboardUser = new javax.swing.JLabel();
         btnKeluar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        txtNamaUser = new javax.swing.JLabel();
-        txtId = new javax.swing.JLabel();
         SelamatDatang = new javax.swing.JLabel();
         SelamatDatang1 = new javax.swing.JLabel();
         bgWhite1 = new javax.swing.JPanel();
@@ -82,6 +49,7 @@ public class UserFrame extends javax.swing.JFrame {
         btnDiagnosa3 = new javax.swing.JButton();
         btnDiagnosa4 = new javax.swing.JButton();
         btnDiagnosa5 = new javax.swing.JButton();
+        btnAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,10 +110,6 @@ public class UserFrame extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        txtNamaUser.setText("jLabel1");
-
-        txtId.setText("jLabel1");
-
         javax.swing.GroupLayout navbarLayout = new javax.swing.GroupLayout(navbar);
         navbar.setLayout(navbarLayout);
         navbarLayout.setHorizontalGroup(
@@ -153,16 +117,9 @@ public class UserFrame extends javax.swing.JFrame {
             .addGroup(navbarLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(DashboardUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(navbarLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(157, 157, 157))
-                    .addGroup(navbarLayout.createSequentialGroup()
-                        .addComponent(txtId)
-                        .addGap(108, 108, 108)
-                        .addComponent(txtNamaUser)
-                        .addGap(55, 55, 55)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 351, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(157, 157, 157)
                 .addComponent(btnKeluar)
                 .addGap(36, 36, 36))
         );
@@ -175,9 +132,7 @@ public class UserFrame extends javax.swing.JFrame {
                     .addGroup(navbarLayout.createSequentialGroup()
                         .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(DashboardUser)
-                            .addComponent(btnKeluar)
-                            .addComponent(txtNamaUser)
-                            .addComponent(txtId))
+                            .addComponent(btnKeluar))
                         .addGap(28, 28, 28))))
         );
 
@@ -254,24 +209,35 @@ public class UserFrame extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
+        btnAdmin.setText("Admin");
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgBlueLayout = new javax.swing.GroupLayout(bgBlue);
         bgBlue.setLayout(bgBlueLayout);
         bgBlueLayout.setHorizontalGroup(
             bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(navbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(bgBlueLayout.createSequentialGroup()
+                .addContainerGap(129, Short.MAX_VALUE)
                 .addGroup(bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgBlueLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SelamatDatang)
-                            .addComponent(SelamatDatang1)))
-                    .addGroup(bgBlueLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(bgWhite1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(SelamatDatang)
+                    .addComponent(SelamatDatang1))
+                .addContainerGap(79, Short.MAX_VALUE))
+            .addGroup(bgBlueLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(bgWhite1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
+                        .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
+                        .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))))
         );
         bgBlueLayout.setVerticalGroup(
             bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,14 +246,15 @@ public class UserFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(SelamatDatang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SelamatDatang1)
                 .addGroup(bgBlueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgBlueLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
+                        .addComponent(SelamatDatang1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bgWhite1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgBlueLayout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgBlueLayout.createSequentialGroup()
+                        .addComponent(bgWhite, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(148, 148, 148)
+                        .addComponent(btnAdmin)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -313,22 +280,9 @@ public class UserFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void btnDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosaActionPerformed
-        if(status){
-            System.out.println("lagi");
-            try {
-                 PertanyaanDialog pd = new PertanyaanDialog(this, true, txtId.getText());
-                 System.out.println(pd.cekKesamaanJawabanDenganAturan());
-            } catch (SQLException ex) {
-                Logger.getLogger(UserFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        tampilkanPertanyaan("Next");
-        
+       DataDiriForm dd = new DataDiriForm();
+       dd.setVisible(true);
     }//GEN-LAST:event_btnDiagnosaActionPerformed
-
-    private void btnDiagnosa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDiagnosa1ActionPerformed
 
     private void btnDiagnosa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa2ActionPerformed
         this.dispose();
@@ -358,6 +312,16 @@ public class UserFrame extends javax.swing.JFrame {
         }
         c.setVisible(true);
     }//GEN-LAST:event_btnDiagnosa5ActionPerformed
+
+    private void btnDiagnosa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosa1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDiagnosa1ActionPerformed
+
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+        LoginFrame l  = new LoginFrame();
+        l.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -401,6 +365,7 @@ public class UserFrame extends javax.swing.JFrame {
     public javax.swing.JPanel bgBlue;
     private javax.swing.JPanel bgWhite;
     private javax.swing.JPanel bgWhite1;
+    private javax.swing.JButton btnAdmin;
     public javax.swing.JButton btnDiagnosa;
     private javax.swing.JButton btnDiagnosa1;
     private javax.swing.JButton btnDiagnosa2;
@@ -410,7 +375,5 @@ public class UserFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnKeluar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel navbar;
-    public javax.swing.JLabel txtId;
-    public javax.swing.JLabel txtNamaUser;
     // End of variables declaration//GEN-END:variables
 }

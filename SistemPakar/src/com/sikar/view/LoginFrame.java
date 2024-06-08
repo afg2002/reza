@@ -240,25 +240,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 AdminFrame f = new AdminFrame();
                 f.txtNamaAdmin.setText(o.getNama());
                 f.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Selamat Datang User");
-                this.dispose();
-                UserFrame f = new UserFrame();
-                f.txtNamaUser.setText(o.getNama());
-                f.txtId.setText(o.getId());
-                try {
-                    List<String> jawaban = jawabanUserDAO.getAllJawabanUserByUserId(o.getId());
-                    System.out.println(jawaban.size());
-                    if(!jawaban.isEmpty()){
-                        f.btnDiagnosa.setText("Cek diagnosa (lagi)");
-                        f.status = true;
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                f.setVisible(true);
-                
-            }
+            } 
         } else {
             JOptionPane.showMessageDialog(null, "Gagal, cek kembali username atau password anda!");
         }
