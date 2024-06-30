@@ -17,7 +17,7 @@ import java.util.List;
 public class UserDAOMySQL implements UserDAO{
     @Override
     public void addUser(User user) throws SQLException {
-        String sql = "INSERT INTO users (id_user, nama, nama_sekolah, jenis_kelamin, kelas, jurusan) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (id_user, nama, nama_sekolah, jenis_kelamin, kelas, jurusan) VALUES (?, ?, ?, ?, ?,?)";
         try (PreparedStatement ps = DatabaseMySQL.connectDB().prepareStatement(sql)) {
             ps.setString(1, user.getId_user());
             ps.setString(2, user.getNama());

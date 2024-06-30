@@ -237,6 +237,12 @@ public class PertanyaanDialog extends javax.swing.JDialog {
             if (currentQuestionIndex >= dataDiriForm.recCiriMinatBakat.size()) {
                 try {
                     System.out.println(cekKesamaanJawabanDenganAturan());
+                   
+                    HasilDialog hasilDialog = new HasilDialog(new DataDiriForm(), true, userId);
+                    
+                     this.dispose();
+                     hasilDialog.setVisible(true);
+//                    hasilDialog.setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(PertanyaanDialog.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -263,7 +269,6 @@ public class PertanyaanDialog extends javax.swing.JDialog {
         List<String> semuaJawaban = jawabanUserDAO.getAllJawabanUserByUserIdAndStatus(userId, "Y");
 
         Map<Aturan, Integer> kecocokanAturan = new HashMap<>();
-        System.out.println(semuaAturan);
 
         for (Aturan aturan : semuaAturan) {
             String[] kriteriaAturan = aturan.getJika().split(",");
@@ -294,8 +299,11 @@ public class PertanyaanDialog extends javax.swing.JDialog {
 
             topThreeAturan.add(aturan);
         }
-        JOptionPane.showMessageDialog(null, message, "Top 3 Aturan", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "Top 5 Aturan", JOptionPane.INFORMATION_MESSAGE);
         HasilDAO hasilDAO = new HasilDAOMySQL();
+        
+        // Delete terlebih dahulu jika ada
+        hasilDAO.deleteHasil(userId);
     
         // Simpan aturan yang memiliki kecocokan lebih dari atau sama dengan 4 ke dalam database
         for (Map.Entry<Aturan, Integer> entry : kecocokanAturan.entrySet()) {
@@ -304,6 +312,8 @@ public class PertanyaanDialog extends javax.swing.JDialog {
                 hasilDAO.insertHasil(hasil);
             }
         }
+        
+        
         return topThreeAturan;
     }
 

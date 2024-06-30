@@ -68,7 +68,6 @@ public class LoginFrame extends javax.swing.JFrame {
         labelUsername = new javax.swing.JLabel();
         labelPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        btnDaftar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -105,33 +104,23 @@ public class LoginFrame extends javax.swing.JFrame {
         labelPassword.setFont(new java.awt.Font("Nunito", 1, 13)); // NOI18N
         labelPassword.setText("Password");
 
-        btnDaftar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnDaftar.setText("Belum punya akun? Daftar");
-        btnDaftar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDaftarMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout bgWhiteLayout = new javax.swing.GroupLayout(bgWhite);
         bgWhite.setLayout(bgWhiteLayout);
         bgWhiteLayout.setHorizontalGroup(
             bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgWhiteLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDaftar)
-                    .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(labelUsername)
-                        .addComponent(text2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(text1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                        .addComponent(txtUsername)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelPassword)
-                        .addComponent(txtPassword)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgWhiteLayout.createSequentialGroup()
-                            .addComponent(login)
-                            .addGap(86, 86, 86))))
+                .addGroup(bgWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelUsername)
+                    .addComponent(text2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(text1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(txtUsername)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelPassword)
+                    .addComponent(txtPassword)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgWhiteLayout.createSequentialGroup()
+                        .addComponent(login)
+                        .addGap(86, 86, 86)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         bgWhiteLayout.setVerticalGroup(
@@ -153,9 +142,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(btnLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDaftar)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Nunito", 0, 36)); // NOI18N
@@ -246,12 +233,6 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void btnDaftarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDaftarMouseClicked
-        this.dispose();
-        RegisterFrame f = new RegisterFrame();
-        f.setVisible(true);
-    }//GEN-LAST:event_btnDaftarMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -290,7 +271,6 @@ public class LoginFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bgBlue;
     private javax.swing.JPanel bgWhite;
-    private javax.swing.JLabel btnDaftar;
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

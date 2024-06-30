@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c82f9a4a-0692-4cd7-b370-9bccd26c7b49">
-	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.zoom" value="1.6500000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="28"/>
+	<property name="ireport.y" value="404"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -187,36 +187,47 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="DataKost" uuid="2f0f6ced-ebbc-4d3a-995f-b047208376ec">
-		<queryString>
-			<![CDATA[SELECT ROW_NUMBER() OVER() AS ranking,
-  daftar_kost.nama_pemilik,
-  daftar_kost.nama_kost,
-  daftar_kost.fasilitas,
-  daftar_kost.no_telp,
-  daftar_kost.alamat
-FROM ranking INNER JOIN daftar_kost ON ranking.id_dk = daftar_kost.id_dk ORDER BY ranking.nilai_bobot DESC;]]>
-		</queryString>
-		<field name="ranking" class="java.math.BigInteger"/>
-		<field name="nama_pemilik" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="nama_kost" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="fasilitas" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="no_telp" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="alamat" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-	</subDataset>
-	<queryString language="SQL">
-		<![CDATA[SELECT pembayaran.id_pembayaran, pembayaran.id_pelanggan,pelanggan.nama_pelanggan,daftar_kost.nama_kost,pelanggan.no_telp,daftar_kost.harga, pembayaran.jumlah_bayar FROM pembayaran INNER JOIN pelanggan ON pelanggan.id_pelanggan = pembayaran.id_pelanggan INNER JOIN daftar_kost ON daftar_kost.id_dk = pelanggan.id_dk ;]]>
+	<parameter name="id_user" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT h.id_user, u.nama, u.nama_sekolah, u.jenis_kelamin, u.kelas, u.jurusan,
+       h.id_kecerdasan_minat, km.nama_kecerdasan, km.deskripsi, h.kecocokan
+FROM hasil h
+INNER JOIN users u ON h.id_user = u.id_user
+INNER JOIN kecerdasan_minat km ON h.id_kecerdasan_minat = km.id
+WHERE h.id_user = $P{id_user} AND h.kecocokan >= 3;]]>
 	</queryString>
+	<field name="id_user" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_sekolah" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jenis_kelamin" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kelas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jurusan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_kecerdasan_minat" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_kecerdasan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deskripsi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kecocokan" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -226,14 +237,14 @@ FROM ranking INNER JOIN daftar_kost ON ranking.id_dk = daftar_kost.id_dk ORDER B
 				<reportElement x="0" y="97" width="555" height="1" uuid="7163444c-3b25-47d4-97d5-cbf1a77b0b31"/>
 			</line>
 			<staticText>
-				<reportElement x="144" y="27" width="400" height="20" uuid="ea199fd6-142d-4ef5-90cc-5070c1d96338"/>
+				<reportElement x="144" y="27" width="411" height="20" uuid="ea199fd6-142d-4ef5-90cc-5070c1d96338"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sistem Pakar Pemilihan Jurusan ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="135" y="47" width="400" height="20" uuid="7d0d5bc2-9981-4805-8f90-ae70d298639a"/>
+				<reportElement x="135" y="47" width="420" height="20" uuid="7d0d5bc2-9981-4805-8f90-ae70d298639a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16" isBold="true"/>
 				</textElement>
@@ -245,7 +256,7 @@ FROM ranking INNER JOIN daftar_kost ON ranking.id_dk = daftar_kost.id_dk ORDER B
 		</band>
 	</title>
 	<pageHeader>
-		<band height="58" splitType="Stretch">
+		<band height="286" splitType="Stretch">
 			<staticText>
 				<reportElement x="135" y="23" width="290" height="35" uuid="7c5cb6a5-77f7-4d0e-b96c-19d01948b75a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -253,72 +264,156 @@ FROM ranking INNER JOIN daftar_kost ON ranking.id_dk = daftar_kost.id_dk ORDER B
 				</textElement>
 				<text><![CDATA[Hasil Akhir Pemilihan Jurusan]]></text>
 			</staticText>
-		</band>
-	</pageHeader>
-	<detail>
-		<band height="211" splitType="Stretch">
-			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
-				<reportElement x="135" y="12" width="100" height="20" uuid="21e255fd-7361-4c43-946c-83dc5031b79e"/>
+				<reportElement x="107" y="79" width="100" height="20" uuid="21e255fd-7361-4c43-946c-83dc5031b79e"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
 				<text><![CDATA[Nama ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="135" y="47" width="100" height="20" uuid="9e5fd146-798e-4568-a6b2-f7b872c790fd"/>
+				<reportElement x="220" y="79" width="18" height="20" uuid="a7f3cd14-6669-44d5-bc74-8b68f0061529"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="258" y="79" width="237" height="20" uuid="28acd613-f675-40e0-b967-350b7a99aab2"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="107" y="118" width="100" height="20" uuid="9e5fd146-798e-4568-a6b2-f7b872c790fd"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
 				<text><![CDATA[Nama Sekolah]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="135" y="90" width="100" height="20" uuid="78129a1f-8a05-4d9a-8464-62d9c244c570"/>
+				<reportElement x="107" y="161" width="100" height="20" uuid="78129a1f-8a05-4d9a-8464-62d9c244c570"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
 				<text><![CDATA[Jenis Kelamin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="248" y="12" width="38" height="20" uuid="a7f3cd14-6669-44d5-bc74-8b68f0061529"/>
+				<reportElement x="220" y="118" width="18" height="20" uuid="633eddb1-7c93-4d05-a0cc-a2ea5ceaa89c"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="248" y="47" width="38" height="20" uuid="633eddb1-7c93-4d05-a0cc-a2ea5ceaa89c"/>
+				<reportElement x="220" y="161" width="18" height="20" uuid="1a25fe77-dcb7-4113-8d61-798bca212f4e"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="248" y="90" width="38" height="20" uuid="1a25fe77-dcb7-4113-8d61-798bca212f4e"/>
+				<reportElement x="220" y="207" width="18" height="20" uuid="23eccbab-3abc-4e6b-82f3-055668f88678"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="248" y="136" width="38" height="20" uuid="23eccbab-3abc-4e6b-82f3-055668f88678"/>
-				<textElement>
-					<font size="13"/>
-				</textElement>
-				<text><![CDATA[:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="135" y="136" width="100" height="20" uuid="1d7db4a9-8a13-44bd-a41e-703dd496747e"/>
+				<reportElement x="107" y="207" width="100" height="20" uuid="1d7db4a9-8a13-44bd-a41e-703dd496747e"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
 				<text><![CDATA[Kelas]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="258" y="118" width="237" height="20" uuid="8beef4fe-ad85-465b-9071-91efb2f0c5ca"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_sekolah}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="161" width="237" height="20" uuid="a882b240-f3b6-4ec3-b6b0-46c9e4e08739"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jenis_kelamin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="207" width="237" height="20" uuid="6961b152-6906-45a4-ab0c-347b05e85b6b"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kelas}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="266" width="118" height="20" backcolor="#3399FF" uuid="d308ecbe-fc04-436b-b8fb-329e9c351434"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="266" width="118" height="20" uuid="ee564cde-5c79-4f15-bd27-2e6d2709b723"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Minat]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="118" y="266" width="355" height="20" backcolor="#3399FF" uuid="a30aaaec-cea6-41fa-847a-81bf63fc96ce"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="118" y="266" width="355" height="20" uuid="7b3c9c65-5b0e-4f11-bcbb-8bf554b17d20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Deskripsi]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="473" y="266" width="82" height="20" backcolor="#3399FF" uuid="e7a7057c-b5d5-4253-aedf-7c7dde77f444"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="473" y="266" width="82" height="20" uuid="d92fb4a4-8fa6-4e9a-9e35-95e4d9e1f1b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kecocokan]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="118" height="20" backcolor="#3399FF" uuid="d98b9155-54e8-47fb-ae71-f4d550aee396"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="118" y="0" width="355" height="20" backcolor="#3399FF" uuid="ce3f3856-a2f5-4c99-a094-02b0bf5db778"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="473" y="0" width="82" height="20" backcolor="#3399FF" uuid="3c72076d-3dba-4822-8757-057bd875656b"/>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="0" width="117" height="20" uuid="012a4b98-ff14-4bdb-b604-e0465231c7f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_kecerdasan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="355" height="20" uuid="e96ef7d8-269e-448f-a418-771f37671684"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deskripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="473" y="0" width="82" height="20" uuid="a1119d77-6e46-46e4-8841-15b929b3b36e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kecocokan}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="65" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
 		<band height="172" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">

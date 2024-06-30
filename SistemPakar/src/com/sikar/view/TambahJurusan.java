@@ -8,6 +8,7 @@ import com.sikar.dao.JurusanDAO;
 import com.sikar.dao.JurusanDAOMySQL;
 import com.sikar.dao.KecerdasanMinatDAO;
 import com.sikar.dao.KecerdasanMinatDAOMySQL;
+import com.sikar.laporan.report;
 import com.sikar.model.Jurusan;
 import com.sikar.model.KecerdasanMinat;
 
@@ -136,6 +137,7 @@ public class TambahJurusan extends javax.swing.JFrame {
         txtIdJurusan = new javax.swing.JTextField();
         labelKodeGejala2 = new javax.swing.JLabel();
         txtIdMinat = new javax.swing.JTextField();
+        btnCetak = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -258,6 +260,13 @@ public class TambahJurusan extends javax.swing.JFrame {
             }
         });
 
+        btnCetak.setText("Cetak");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCetakActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DataCiriMinatBakatBoxLayout = new javax.swing.GroupLayout(DataCiriMinatBakatBox);
         DataCiriMinatBakatBox.setLayout(DataCiriMinatBakatBoxLayout);
         DataCiriMinatBakatBoxLayout.setHorizontalGroup(
@@ -271,6 +280,8 @@ public class TambahJurusan extends javax.swing.JFrame {
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
@@ -293,9 +304,8 @@ public class TambahJurusan extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtJurusanKuliah, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtIdJurusan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                                        .addComponent(txtIdMinat, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txtIdJurusan, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                    .addComponent(txtIdMinat)
                                     .addComponent(txtMinat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(66, 66, 66)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -327,7 +337,8 @@ public class TambahJurusan extends javax.swing.JFrame {
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -446,6 +457,11 @@ public class TambahJurusan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdMinatActionPerformed
 
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+       report r = new report();
+       r.generateReport("laporanjurusan");
+    }//GEN-LAST:event_btnCetakActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -493,6 +509,7 @@ public class TambahJurusan extends javax.swing.JFrame {
     private javax.swing.JLabel DataGejala;
     private javax.swing.JLabel TambahGejala;
     private javax.swing.JPanel bgBlue;
+    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;

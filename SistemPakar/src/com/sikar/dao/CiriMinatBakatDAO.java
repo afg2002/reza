@@ -1,7 +1,6 @@
 package com.sikar.dao;
 
 import com.sikar.model.CiriMinatBakat;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface CiriMinatBakatDAO {

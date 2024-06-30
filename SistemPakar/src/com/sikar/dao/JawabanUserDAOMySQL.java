@@ -48,13 +48,6 @@ public class JawabanUserDAOMySQL implements JawabanUserDAO {
         return jawabanList;
     }
    
-    /**
-     *
-     * @param userId
-     * @param status
-     * @return
-     * @throws SQLException
-     */
     @Override
     public List<String> getAllJawabanUserByUserIdAndStatus(String userId, String status) {
         List<String> jawabanList = new ArrayList<>();

@@ -6,6 +6,8 @@ package com.sikar.dao;
 
 import java.sql.*;
 import com.sikar.model.Hasil;
+import com.sikar.model.HasilJoin;
+import java.util.List;
 
 /**
  *
@@ -13,4 +15,10 @@ import com.sikar.model.Hasil;
  */
 public interface HasilDAO {
     void insertHasil(Hasil hasil) throws SQLException;
-}
+    
+    void deleteHasil(String userId) throws SQLException;;
+    
+    public List<HasilJoin> getHasilByUserId(String userId) throws SQLException;
+    public List<HasilJoin> getHasilByNama(String nama) throws SQLException;
+    
+ }
