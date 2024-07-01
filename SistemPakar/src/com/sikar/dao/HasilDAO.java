@@ -20,5 +20,6 @@ public interface HasilDAO {
     
     public List<HasilJoin> getHasilByUserId(String userId) throws SQLException;
     public List<HasilJoin> getHasilByNama(String nama) throws SQLException;
+    public List<HasilJoin> getHasilAll() throws SQLException;
     
  }

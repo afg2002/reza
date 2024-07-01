@@ -8,6 +8,7 @@ import com.sikar.dao.CiriMinatBakatDAO;
 import com.sikar.dao.CiriMinatBakatDAOMySQL;
 import com.sikar.dao.HasilDAO;
 import com.sikar.dao.HasilDAOMySQL;
+import com.sikar.laporan.report;
 import com.sikar.model.CiriMinatBakat;
 import com.sikar.model.HasilJoin;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class HasilFrame extends javax.swing.JFrame {
     }
 
     public void loadHasil() throws SQLException {
-        recHasilDAOs = hasilDAO.getHasilByUserId("test");
+        recHasilDAOs = hasilDAO.getHasilAll();
     }
 
     public void tableFill() {
@@ -99,8 +100,7 @@ public class HasilFrame extends javax.swing.JFrame {
         tabelCiriMinatBakat = new javax.swing.JTable();
         btnCari = new javax.swing.JButton();
         txtCari = new javax.swing.JTextField();
-        txtCariNama = new javax.swing.JTextField();
-        btnCari1 = new javax.swing.JButton();
+        btnCetak = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -168,12 +168,10 @@ public class HasilFrame extends javax.swing.JFrame {
 
         txtCari.setText("Cari");
 
-        txtCariNama.setText("Cari");
-
-        btnCari1.setText("Cari Nama");
-        btnCari1.addActionListener(new java.awt.event.ActionListener() {
+        btnCetak.setText("Cetak");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCari1ActionPerformed(evt);
+                btnCetakActionPerformed(evt);
             }
         });
 
@@ -186,22 +184,19 @@ public class HasilFrame extends javax.swing.JFrame {
                 .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                         .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
-                                .addComponent(DataGejala, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(DataGejala, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane3))
                         .addGap(20, 20, 20))
                     .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
-                        .addGap(502, 502, 502)
                         .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
-                                .addComponent(txtCariNama, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCari1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                                .addGap(502, 502, 502)
                                 .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                                .addGap(625, 625, 625)
+                                .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(22, Short.MAX_VALUE))))
         );
         DataCiriMinatBakatBoxLayout.setVerticalGroup(
@@ -210,18 +205,15 @@ public class HasilFrame extends javax.swing.JFrame {
                 .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(DataGejala)
-                        .addGap(21, 21, 21))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataCiriMinatBakatBoxLayout.createSequentialGroup()
+                        .addComponent(DataGejala))
+                    .addGroup(DataCiriMinatBakatBoxLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCari)
                             .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(DataCiriMinatBakatBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCariNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCari1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCetak)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -301,16 +293,11 @@ public class HasilFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCariActionPerformed
 
-    private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCari1ActionPerformed
-        
-        try {
-            String cari = txtCari.getText();
-            recHasilDAOs = hasilDAO.getHasilByNama(cari);
-            updateTable(recHasilDAOs);
-        } catch (SQLException ex) {
-            Logger.getLogger(HasilFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnCari1ActionPerformed
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+        report r = new report();
+        String id_user = txtCari.getText();
+        r.generateReportWithParameter("laporanhasil", id_user);
+    }//GEN-LAST:event_btnCetakActionPerformed
 
     /**
      * @param args the command line arguments
@@ -372,13 +359,12 @@ public class HasilFrame extends javax.swing.JFrame {
     private javax.swing.JLabel TambahGejala;
     private javax.swing.JPanel bgBlue;
     private javax.swing.JButton btnCari;
-    private javax.swing.JButton btnCari1;
+    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnKembali;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel navbar;
     private javax.swing.JTable tabelCiriMinatBakat;
     private javax.swing.JTextField txtCari;
-    private javax.swing.JTextField txtCariNama;
     // End of variables declaration//GEN-END:variables
 }

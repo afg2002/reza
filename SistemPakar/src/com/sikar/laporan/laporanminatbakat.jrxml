@@ -221,9 +221,10 @@
 				</textElement>
 				<text><![CDATA[Menggunakan Metode Forward Chaining]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement x="35" y="27" width="100" height="57" uuid="b0a79af2-da98-4209-92cf-8e0169bcbacb"/>
-			</rectangle>
+			<image>
+				<reportElement x="73" y="11" width="71" height="86" uuid="199a276d-c138-43e9-857b-3c030f008448"/>
+				<imageExpression><![CDATA["C:\\Users\\afgha\\Documents\\NetBeansProjects\\reza\\SistemPakar\\src\\com\\sikar\\laporan\\logo.jpeg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

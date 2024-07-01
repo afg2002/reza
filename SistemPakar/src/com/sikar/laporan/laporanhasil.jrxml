@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c82f9a4a-0692-4cd7-b370-9bccd26c7b49">
 	<property name="ireport.zoom" value="1.6500000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="404"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -250,9 +250,10 @@ WHERE h.id_user = $P{id_user} AND h.kecocokan >= 3;]]>
 				</textElement>
 				<text><![CDATA[Menggunakan Metode Forward Chaining]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement x="35" y="27" width="100" height="57" uuid="b0a79af2-da98-4209-92cf-8e0169bcbacb"/>
-			</rectangle>
+			<image>
+				<reportElement x="64" y="11" width="71" height="86" uuid="dec0e12c-009c-4f57-953e-6cf69dc27f82"/>
+				<imageExpression><![CDATA["C:\\Users\\afgha\\Documents\\NetBeansProjects\\reza\\SistemPakar\\src\\com\\sikar\\laporan\\logo.jpeg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

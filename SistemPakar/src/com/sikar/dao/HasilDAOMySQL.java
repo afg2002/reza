@@ -76,6 +76,38 @@ public List<HasilJoin> getHasilByUserId(String userId) throws SQLException {
     return hasilList;
 }
 
+  @Override
+public List<HasilJoin> getHasilAll() throws SQLException {
+    String query = "SELECT h.id_user, u.nama, u.nama_sekolah, u.jenis_kelamin, u.kelas, u.jurusan, " +
+                   "h.id_kecerdasan_minat, km.nama_kecerdasan, km.deskripsi, h.kecocokan " +
+                   "FROM hasil h " +
+                   "INNER JOIN users u ON h.id_user = u.id_user " +
+                   "INNER JOIN kecerdasan_minat km ON h.id_kecerdasan_minat = km.id " +
+                   "WHERE h.kecocokan >= 3";
+    List<HasilJoin> hasilList = new ArrayList<>();
+
+    try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                HasilJoin hasil = new HasilJoin(
+                    rs.getString("id_user"),
+                    rs.getString("nama"),
+                    rs.getString("nama_sekolah"),
+                    rs.getString("jenis_kelamin"),
+                    rs.getString("kelas"),
+                    rs.getString("jurusan"),
+                    rs.getInt("id_kecerdasan_minat"),
+                    rs.getString("nama_kecerdasan"),
+                    rs.getString("deskripsi"),
+                    rs.getInt("kecocokan")
+                );
+                hasilList.add(hasil);
+            }
+        }
+    }
+    return hasilList;
+}
+
 public List<HasilJoin> getHasilByNama(String nama) throws SQLException {
   String query = "SELECT h.id_user, u.nama, u.nama_sekolah, u.jenis_kelamin, u.kelas, u.jurusan, " +
       "h.id_kecerdasan_minat, km.nama_kecerdasan, km.deskripsi, h.kecocokan " +

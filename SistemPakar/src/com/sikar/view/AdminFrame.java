@@ -273,7 +273,12 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnJurusanActionPerformed
 
     private void btnJawabanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJawabanActionPerformed
-        
+        try {
+            HasilFrame h = new HasilFrame();
+            h.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnJawabanActionPerformed
 
     /**
