@@ -252,7 +252,7 @@ WHERE h.id_user = $P{id_user} AND h.kecocokan >= 3;]]>
 			</staticText>
 			<image>
 				<reportElement x="64" y="11" width="71" height="86" uuid="dec0e12c-009c-4f57-953e-6cf69dc27f82"/>
-				<imageExpression><![CDATA["C:\\Users\\afgha\\Documents\\NetBeansProjects\\reza\\SistemPakar\\src\\com\\sikar\\laporan\\logo.jpeg"]]></imageExpression>
+				<imageExpression><![CDATA[".\\logo.jpeg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

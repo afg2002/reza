@@ -226,7 +226,7 @@
 			</staticText>
 			<image>
 				<reportElement x="64" y="11" width="71" height="86" uuid="497b40a5-f833-4874-87e9-5367f2be96a0"/>
-				<imageExpression><![CDATA["C:\\Users\\afgha\\Documents\\NetBeansProjects\\reza\\SistemPakar\\src\\com\\sikar\\laporan\\logo.jpeg"]]></imageExpression>
+				<imageExpression><![CDATA[".\\logo.jpeg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

@@ -234,7 +234,7 @@ INNER JOIN kecerdasan_minat ON aturan.maka = kecerdasan_minat.id;]]>
 			</staticText>
 			<image>
 				<reportElement x="64" y="12" width="71" height="86" uuid="e6dd6ed2-ccd9-4329-810d-8ac669fe5707"/>
-				<imageExpression><![CDATA["C:\\Users\\afgha\\Documents\\NetBeansProjects\\reza\\SistemPakar\\src\\com\\sikar\\laporan\\logo.jpeg"]]></imageExpression>
+				<imageExpression><![CDATA[".\\logo.jpeg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
